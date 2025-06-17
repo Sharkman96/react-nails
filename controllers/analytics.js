@@ -66,6 +66,25 @@ exports.resetButtonClicks = async (req, res) => {
   }
 };
 
+// Сброс всей статистики
+exports.resetAllStats = async (req, res) => {
+  try {
+    // Удаляем все просмотры страниц
+    await PageView.deleteMany({});
+    
+    // Сбрасываем все клики по кнопкам
+    await ButtonClick.updateMany({}, { count: 0, lastClicked: new Date() });
+    
+    res.json({ 
+      success: true, 
+      message: 'Вся статистика успешно сброшена'
+    });
+  } catch (error) {
+    console.error('Error resetting all stats:', error);
+    res.status(500).json({ message: 'Ошибка сервера' });
+  }
+};
+
 // Отслеживание просмотра страницы
 exports.trackPageView = async (req, res) => {
   try {

@@ -1,5 +1,24 @@
 const Service = require('../models/Service');
 
+// Функция для генерации ключа услуги на основе названия
+const generateServiceKey = (serviceName) => {
+  return serviceName
+    .toLowerCase()
+    .replace(/[^a-zа-я0-9\s]/g, '') // убираем спецсимволы
+    .replace(/\s+/g, '-') // заменяем пробелы на дефисы
+    .replace(/[а-я]/g, (match) => { // транслитерация
+      const translitMap = {
+        'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+        'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+        'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+        'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+        'ы': 'y', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+      };
+      return translitMap[match] || match;
+    })
+    .slice(0, 50); // ограничиваем длину
+};
+
 // Получить все услуги
 const getAllServices = async (req, res) => {
   try {
@@ -25,7 +44,24 @@ const getAllServicesAdmin = async (req, res) => {
 // Создать новую услугу
 const createService = async (req, res) => {
   try {
-    const service = new Service(req.body);
+    const serviceData = { ...req.body };
+    
+    // Автоматически генерируем ключ если он не указан
+    if (!serviceData.key) {
+      const baseKey = generateServiceKey(serviceData.name.ru);
+      let key = baseKey;
+      let counter = 1;
+      
+      // Проверяем уникальность ключа
+      while (await Service.findOne({ key })) {
+        key = `${baseKey}-${counter}`;
+        counter++;
+      }
+      
+      serviceData.key = key;
+    }
+    
+    const service = new Service(serviceData);
     await service.save();
     res.status(201).json(service);
   } catch (error) {

@@ -30,11 +30,13 @@ const serviceSchema = new mongoose.Schema({
   description: {
     ru: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     },
     de: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     }
   },
   icon: {

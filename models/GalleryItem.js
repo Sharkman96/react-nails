@@ -4,11 +4,11 @@ const galleryItemSchema = new mongoose.Schema({
   title: {
     ru: {
       type: String,
-      required: true
+      required: false
     },
     de: {
       type: String,
-      required: true
+      required: false
     }
   },
   category: {
@@ -18,7 +18,7 @@ const galleryItemSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
-    required: true
+    required: false
   },
   thumbnailUrl: {
     type: String
