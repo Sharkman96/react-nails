@@ -13,8 +13,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "vercel-build": "npm run install-client && npm run build",
     "railway-build": "npm run install-client && npm run build",
-    "init-admin": "node scripts/initAdmin.js",
-    "postinstall": "npm run build"
+    "init-admin": "node scripts/initAdmin.js"
   },
   "engines": {
     "node": ">=18.0.0",

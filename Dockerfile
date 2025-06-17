@@ -4,14 +4,13 @@ FROM node:18-alpine
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем package.json файлы
-COPY package*.json ./
-COPY client/package*.json ./client/
+# Копируем все файлы сначала
+COPY . .
 
-# Устанавливаем зависимости сервера
-RUN npm ci --only=production
+# Устанавливаем зависимости сервера (без postinstall)
+RUN npm ci --only=production --ignore-scripts
 
-# Устанавливаем зависимости клиента
+# Переходим в клиентскую папку и устанавливаем зависимости
 WORKDIR /app/client
 RUN npm ci
 
@@ -20,9 +19,6 @@ RUN npm run build
 
 # Возвращаемся в корневую директорию
 WORKDIR /app
-
-# Копируем остальные файлы
-COPY . .
 
 # Открываем порт
 EXPOSE 3000
