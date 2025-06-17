@@ -1,44 +1,31 @@
-# Multi-stage build для оптимизации
-# Этап 1: Сборка клиентского приложения
-FROM node:18-alpine AS client-builder
+# Простая сборка без многоэтапности для экономии ресурсов
+FROM node:18-alpine
 
-# Оптимизация памяти для React
-ENV NODE_OPTIONS="--max-old-space-size=1024"
+# Оптимизация памяти
+ENV NODE_OPTIONS="--max-old-space-size=512"
 ENV GENERATE_SOURCEMAP=false
 ENV CI=false
 
-WORKDIR /app/client
-
-# Копируем package.json и устанавливаем зависимости
-COPY client/package*.json ./
-RUN npm ci --legacy-peer-deps
-
-# Копируем исходники и собираем
-COPY client/ ./
-RUN npm run build
-
-# Этап 2: Подготовка production сервера
-FROM node:18-alpine AS production
-
 WORKDIR /app
 
-# Копируем package.json сервера и устанавливаем зависимости
-COPY package*.json ./
-RUN npm ci --only=production --ignore-scripts
-
-# Копируем серверные файлы
+# Копируем все файлы
 COPY . .
 
-# Копируем собранное клиентское приложение
-COPY --from=client-builder /app/client/build ./client/build
+# Устанавливаем зависимости сервера (без devDependencies)
+RUN npm install --only=production --no-audit --no-fund
 
-# Создаем пользователя без привилегий
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+# Переходим в client и устанавливаем зависимости
+WORKDIR /app/client
+RUN npm install --no-audit --no-fund
 
-# Меняем владельца файлов
-RUN chown -R nextjs:nodejs /app
-USER nextjs
+# Собираем React приложение
+RUN npm run build
+
+# Возвращаемся в корень и очищаем кэш npm для экономии места
+WORKDIR /app
+RUN npm cache clean --force
+RUN rm -rf client/node_modules
+RUN rm -rf client/src
 
 # Открываем порт
 EXPOSE 3000
