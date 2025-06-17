@@ -13,26 +13,26 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
+      "source": "/api/(.*)",
+      "destination": "/server.js"
     },
     {
-      "src": "/sitemap.xml",
-      "dest": "/server.js"
+      "source": "/sitemap.xml",
+      "destination": "/server.js"
     },
     {
-      "src": "/robots.txt",
-      "dest": "/server.js"
+      "source": "/robots.txt",
+      "destination": "/server.js"
     },
     {
-      "src": "/uploads/(.*)",
-      "dest": "/server.js"
+      "source": "/uploads/(.*)",
+      "destination": "/server.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/build/$1"
+      "source": "/(.*)",
+      "destination": "/client/build/$1"
     }
   ],
   "env": {
