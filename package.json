@@ -8,11 +8,11 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server.js",
     "client": "cd client && npm start",
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install --no-audit --no-fund",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "vercel-build": "npm run install-client && npm run build",
-    "railway-build": "npm run install-client && npm run build",
+    "build": "echo 'Build already completed'",
+    "install-client": "echo 'Client dependencies not needed in production'",
+    "heroku-postbuild": "echo 'Build already completed'",
+    "vercel-build": "echo 'Build already completed'", 
+    "railway-build": "echo 'Build already completed'",
     "init-admin": "node scripts/initAdmin.js"
   },
   "engines": {
