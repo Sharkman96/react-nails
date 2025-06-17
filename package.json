@@ -12,6 +12,7 @@
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "vercel-build": "npm run install-client && npm run build",
+    "railway-build": "npm run install-client && npm run build",
     "init-admin": "node scripts/initAdmin.js",
     "postinstall": "npm run build"
   },
