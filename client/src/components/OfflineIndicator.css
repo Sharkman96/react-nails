@@ -1,0 +1,39 @@
+.offline-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--error);
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+.offline-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.offline-content svg {
+  flex-shrink: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .offline-indicator {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .offline-content {
+    gap: 6px;
+  }
+} 

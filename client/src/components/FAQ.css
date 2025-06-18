@@ -1,0 +1,238 @@
+.faq {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.faq-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  color: white;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+}
+
+.faq-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.faq-description {
+  font-size: 1.1rem;
+  color: #718096;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+  background-color: #f8f9fa;
+}
+
+.faq-question.active {
+  background-color: #ff6b9d;
+  color: white;
+}
+
+.question-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.question-icon {
+  color: #718096;
+  transition: all 0.3s ease;
+}
+
+.faq-question.active .question-icon {
+  color: white;
+}
+
+.faq-answer {
+  overflow: hidden;
+}
+
+.answer-content {
+  padding: 0 1.5rem 1.5rem;
+  color: #4a5568;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.faq-contact {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.faq-contact p {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+}
+
+.contact-methods {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.contact-link.phone {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.contact-link.whatsapp {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: white;
+}
+
+.contact-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .faq {
+    padding: 2rem 0;
+  }
+  
+  .faq-container {
+    padding: 0 1rem;
+  }
+  
+  .faq-title {
+    font-size: 2rem;
+  }
+  
+  .faq-description {
+    font-size: 1rem;
+  }
+  
+  .faq-question {
+    padding: 1rem;
+  }
+  
+  .question-text {
+    font-size: 1rem;
+  }
+  
+  .answer-content {
+    padding: 0 1rem 1rem;
+  }
+  
+  .contact-methods {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-link {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+
+/* Темная тема */
+[data-theme="dark"] .faq {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+[data-theme="dark"] .faq-title {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .faq-description {
+  color: #a0aec0;
+}
+
+[data-theme="dark"] .faq-item {
+  background: #2d3748;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .faq-item:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .faq-question:hover {
+  background-color: #4a5568;
+}
+
+[data-theme="dark"] .answer-content {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .faq-contact {
+  background: #2d3748;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .faq-contact p {
+  color: #e2e8f0;
+} 

@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "title": "Professionelle Maniküre",
+    "subtitle": "Ich erschaffe Schönheit für Ihre Nägel",
+    "description": "Individueller Ansatz für jeden Kunden. Moderne Materialien und Techniken. Langanhaltendes Ergebnis.",
+    "imageAlt": "Professionelle Maniküre - schöne Hände mit Nail-Art"
+  },
+  "services": {
+    "title": "Dienstleistungen und Preise",
+    "description": "Professionelle Maniküre- und Pediküre-Dienstleistungen mit hochwertigen Materialien",
+    "keywords": "maniküre, pediküre, gel-lack, nagelverlängerung, nageldesign, Stuttgart",
+    "categories": {
+      "all": "Alle Dienstleistungen",
+      "manicure": "Maniküre",
+      "pedicure": "Pediküre",
+      "nailArt": "Nageldesign", 
+      "extensions": "Nagelverlängerung"
+    },
+    "manicure": {
+      "name": "Maniküre",
+      "price": "ab 25€",
+      "description": "Klassische Maniküre mit Lackierung"
+    },
+    "pedicure": {
+      "name": "Pediküre",
+      "price": "ab 35€",
+      "description": "Fuß- und Nagelpflege"
+    },
+    "gelPolish": {
+      "name": "Gel-Lack",
+      "price": "ab 30€",
+      "description": "Langanhaltender Lack bis zu 3 Wochen"
+    },
+    "extensions": {
+      "name": "Nagelverlängerung",
+      "price": "ab 50€",
+      "description": "Nagelverlängerung in jeder Form"
+    },
+    "design": {
+      "name": "Nageldesign",
+      "price": "ab 5€",
+      "description": "Einzigartige Muster und Verzierungen"
+    },
+    "priceNote": "* Preise sind Richtwerte. Der genaue Preis hängt von der Komplexität der Arbeit und den verwendeten Materialien ab.",
+    "noServices": "Dienstleistungen sind vorübergehend nicht verfügbar. Bitte kontaktieren Sie uns für weitere Informationen."
+  },
+  "gallery": {
+    "title": "Meine Arbeiten",
+    "viewMore": "Mehr Arbeiten auf Instagram ansehen",
+    "description": "Beispiele meiner Arbeiten - von klassisch bis kreativ",
+    "noItems": "Arbeiten sind vorübergehend nicht verfügbar. Bitte schauen Sie später vorbei oder kontaktieren Sie uns."
+  },
+  "contact": {
+    "title": "Kontaktieren Sie mich",
+    "whatsapp": "WhatsApp schreiben",
+    "instagram": "Instagram folgen",
+   "address": "Stuttgart Nord"
+  },
+  "about": {
+    "title": "Über den Meister",
+    "description": "Professioneller Meister mit über 7 Jahren Erfahrung. Ich verbessere mich ständig in neuen Techniken und verfolge Trends in der Nagelindustrie.",
+    "experience": "7+ Jahre Erfahrung",
+    "experienceDesc": "Professionelle Erfahrung in der Nagelbranche",
+    "certificates": "Zertifizierter Meister",
+    "certificatesDesc": "Zertifizierter Meister mit nachgewiesener Qualifikation",
+    "materials": "Nur hochwertige Materialien",
+    "materialsDesc": "Ich verwende nur hochwertige und sichere Materialien"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "services": "Dienstleistungen",
+    "gallery": "Galerie",
+    "contact": "Kontakt"
+  },
+  "language": "Sprache",
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "add": "Hinzufügen"
+  }
+} 

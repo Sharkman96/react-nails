@@ -1,0 +1,233 @@
+/* Стили для lazy loading изображений */
+
+.lazy-image {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lazy-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #666;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lazy-image-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Стили для галереи */
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.gallery-image.loaded {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для модального окна */
+.modal-image-content {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.modal-image-content.loaded {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Стили для loading состояния */
+.loading-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Стили для error состояния */
+.error-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.retry-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.retry-btn:hover {
+  background: #2980b9;
+}
+
+/* Стили для placeholder изображений */
+.nail-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nail-finger {
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  border-radius: 30px 30px 0 0;
+  position: relative;
+  margin: 0 5px;
+}
+
+.nail-tip {
+  width: 60px;
+  height: 20px;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 0 0 30px 30px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
+
+.nail-preview-large {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nail-finger-large {
+  width: 120px;
+  height: 160px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  border-radius: 60px 60px 0 0;
+  position: relative;
+  margin: 0 10px;
+}
+
+.nail-tip-large {
+  width: 120px;
+  height: 40px;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 0 0 60px 60px;
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  .lazy-image {
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .loading-spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 3px;
+  }
+  
+  .nail-finger {
+    width: 40px;
+    height: 60px;
+  }
+  
+  .nail-tip {
+    width: 40px;
+    height: 15px;
+    bottom: -15px;
+  }
+  
+  .nail-finger-large {
+    width: 80px;
+    height: 120px;
+  }
+  
+  .nail-tip-large {
+    width: 80px;
+    height: 30px;
+    bottom: -30px;
+  }
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  .lazy-image-placeholder {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #bdc3c7;
+  }
+  
+  .loading-spinner {
+    border-color: #34495e;
+    border-top-color: #3498db;
+  }
+  
+  .retry-btn {
+    background: #3498db;
+  }
+  
+  .retry-btn:hover {
+    background: #2980b9;
+  }
+} 

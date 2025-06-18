@@ -1,0 +1,154 @@
+.pwa-prompt {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  max-width: 400px;
+  width: calc(100% - 40px);
+}
+
+.pwa-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 32px var(--shadow-heavy);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.pwa-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--accent-primary);
+  border-radius: 12px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.pwa-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.pwa-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pwa-text p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.pwa-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pwa-install-btn,
+.pwa-update-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pwa-install-btn {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.pwa-install-btn:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-1px);
+}
+
+.pwa-update-btn {
+  background: var(--info);
+  color: white;
+}
+
+.pwa-update-btn:hover {
+  background: #3d8bfd;
+  transform: translateY(-1px);
+}
+
+.pwa-dismiss-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pwa-dismiss-btn:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .pwa-prompt {
+    top: 10px;
+    width: calc(100% - 20px);
+  }
+  
+  .pwa-content {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .pwa-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .pwa-text h3 {
+    font-size: 14px;
+  }
+  
+  .pwa-text p {
+    font-size: 13px;
+  }
+  
+  .pwa-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .pwa-install-btn,
+  .pwa-update-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+  
+  .pwa-dismiss-btn {
+    width: 28px;
+    height: 28px;
+  }
+} 

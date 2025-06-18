@@ -1,0 +1,244 @@
+.services {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+  transition: background-color 0.3s ease;
+}
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.services-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: color 0.3s ease;
+}
+
+.services-underline {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.loading-services {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--skeleton-bg);
+  border-top: 4px solid #ff6b9d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-services p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.no-services {
+  text-align: center;
+  padding: 4rem 0;
+  background: rgba(255, 107, 157, 0.1);
+  border-radius: 15px;
+  margin: 2rem 0;
+}
+
+.no-services p {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 1rem 1rem;
+  text-align: center;
+  box-shadow: 0 10px 30px var(--shadow-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card:hover {
+  box-shadow: 0 15px 40px var(--shadow-medium);
+  transform: translateY(-5px);
+}
+
+.service-icon {
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  padding: 1rem;
+  border-radius: 50%;
+  background: rgba(255, 107, 157, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.service-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+}
+
+.service-card:hover .service-icon::before {
+  opacity: 0.2;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.service-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.service-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.service-price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.service-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.services-note {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 107, 157, 0.1);
+  border-radius: 15px;
+  border-left: 4px solid #ff6b9d;
+}
+
+.services-note p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+/* Скелетон для услуг */
+.service-skeleton {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  .services {
+    padding: 4rem 0;
+  }
+
+  .services-container {
+    padding: 0 1rem;
+  }
+
+  .services-title {
+    font-size: 2.5rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .service-title {
+    font-size: 1.3rem;
+  }
+
+  .service-price {
+    font-size: 1.5rem;
+  }
+} 

@@ -1,0 +1,118 @@
+:root {
+  /* Светлая тема (по умолчанию) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-color: #e1e5e9;
+  --border-hover: #d1d5d9;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-heavy: rgba(0, 0, 0, 0.2);
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --accent-primary: #ff6b9d;
+  --accent-secondary: #c44569;
+  --success: #43e97b;
+  --warning: #ffa726;
+  --error: #ff6b6b;
+  --info: #4facfe;
+  --overlay: rgba(0, 0, 0, 0.5);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #e1e5e9;
+  --input-focus: #ff6b9d;
+  --button-primary: linear-gradient(135deg, #ff6b9d, #c44569);
+  --button-secondary: #f8f9fa;
+  --button-text: #ffffff;
+  --button-text-secondary: #666666;
+  --modal-bg: #ffffff;
+  --tooltip-bg: #333333;
+  --tooltip-text: #ffffff;
+  --skeleton-bg: #f0f0f0;
+  --skeleton-shimmer: #e0e0e0;
+}
+
+[data-theme="dark"] {
+  /* Темная тема */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #404040;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #999999;
+  --border-color: #404040;
+  --border-hover: #505050;
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-medium: rgba(0, 0, 0, 0.4);
+  --shadow-heavy: rgba(0, 0, 0, 0.5);
+  --shadow-dark: rgba(0, 0, 0, 0.6);
+  --accent-primary: #ff6b9d;
+  --accent-secondary: #c44569;
+  --success: #43e97b;
+  --warning: #ffa726;
+  --error: #ff6b6b;
+  --info: #4facfe;
+  --overlay: rgba(0, 0, 0, 0.7);
+  --card-bg: #2d2d2d;
+  --input-bg: #404040;
+  --input-border: #505050;
+  --input-focus: #ff6b9d;
+  --button-primary: linear-gradient(135deg, #ff6b9d, #c44569);
+  --button-secondary: #404040;
+  --button-text: #ffffff;
+  --button-text-secondary: #cccccc;
+  --modal-bg: #2d2d2d;
+  --tooltip-bg: #ffffff;
+  --tooltip-text: #333333;
+  --skeleton-bg: #404040;
+  --skeleton-shimmer: #505050;
+}
+
+/* Плавные переходы для всех элементов */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Глобальные стили для темной темы */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Стили для скроллбара */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Стили для выделения текста */
+::selection {
+  background-color: var(--accent-primary);
+  color: var(--button-text);
+}
+
+/* Стили для фокуса */
+:focus {
+  outline: 2px solid var(--input-focus);
+  outline-offset: 2px;
+}
+
+/* Стили для disabled элементов */
+:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+} 

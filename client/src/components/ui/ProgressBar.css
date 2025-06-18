@@ -1,0 +1,214 @@
+.progress-bar {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progress-filename {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progress-percentage {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.progress-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-cancel {
+  background: none;
+  border: none;
+  color: var(--error);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.progress-cancel:hover {
+  background: var(--error);
+  color: white;
+}
+
+.progress-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-status {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* Компактный вариант */
+.progress-compact {
+  padding: 8px 12px;
+}
+
+.progress-compact .progress-header {
+  margin-bottom: 8px;
+}
+
+.progress-compact .progress-track {
+  height: 4px;
+  margin-bottom: 0;
+}
+
+/* Круговой прогресс */
+.progress-circular {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-circular svg {
+  transform: rotate(-90deg);
+}
+
+.progress-circular-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.progress-circular .progress-percentage {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Множественные загрузки */
+.upload-progress {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  max-width: 500px;
+}
+
+.upload-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.upload-progress-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.upload-count {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.upload-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Анимации */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.progress-bar[data-status="uploading"] .progress-fill {
+  animation: pulse 2s infinite;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .progress-bar {
+    padding: 12px;
+  }
+  
+  .progress-filename {
+    max-width: 150px;
+  }
+  
+  .upload-progress {
+    padding: 16px;
+  }
+  
+  .upload-progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Темная тема */
+[data-theme="dark"] .progress-bar {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .progress-track {
+  background: var(--bg-secondary);
+} 
