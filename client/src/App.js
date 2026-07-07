@@ -1,37 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import './styles/themes.css';
 
-// Контексты
 import { ThemeProvider } from './contexts/ThemeContext';
 
-// Компоненты
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Gallery from './components/Gallery';
 import About from './components/About';
 import Contact from './components/Contact';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
-import AdminPanel from './components/admin/AdminPanel';
+import LegalPage from './components/LegalPage';
 import SEO from './components/SEO';
-import { createWebSiteSchema, createOrganizationSchema } from './utils/schema';
+import {
+  createBreadcrumbSchema,
+} from './utils/schema';
+import { getCanonicalUrl, getLangFromPath } from './utils/localeRoutes';
 
 const MainSite = () => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const routeLang = getLangFromPath(location.pathname);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (i18n.isInitialized) {
-      document.title = i18n.language === 'ru' 
-        ? 'Профессиональный маникюр в Штутгарте | Мастер по маникюру'
-        : 'Professionelle Maniküre in Stuttgart | Nageldesign Meister';
+    if (i18n.language !== routeLang) {
+      i18n.changeLanguage(routeLang);
+    }
+  }, [routeLang, i18n]);
+
+  useEffect(() => {
+    if (i18n.isInitialized && i18n.language === routeLang) {
       setIsLoaded(true);
     }
-  }, [i18n.isInitialized, i18n.language]);
+  }, [i18n.isInitialized, i18n.language, routeLang]);
+
+  const canonicalUrl = getCanonicalUrl(routeLang);
 
   if (!isLoaded) {
     return <div className="loading-screen">Loading...</div>;
@@ -39,31 +48,34 @@ const MainSite = () => {
 
   return (
     <div className="main-site">
-      <SEO 
-        title={t('hero.title')}
-        description={t('hero.description')}
-        keywords={i18n.language === 'ru'
-          ? 'маникюр штутгарт, педикюр штутгарт, наращивание ногтей, дизайн ногтей, маникюр салон'
-          : 'maniküre stuttgart, pediküre stuttgart, nagelverlängerung, nageldesign, maniküre salon'
-        }
-        image="/images/hero-bg.jpg"
+      <SEO
+        lang={routeLang}
+        title={t('meta.title')}
+        description={t('meta.description')}
+        keywords={t('meta.keywords')}
+        image="/og-image.jpg"
+        canonical={canonicalUrl}
         schema={[
-          createWebSiteSchema(),
-          createOrganizationSchema()
+          createBreadcrumbSchema([
+            { name: t('navigation.home'), url: `${canonicalUrl}` },
+            { name: t('navigation.services'), url: `${canonicalUrl}#services` },
+            { name: t('navigation.gallery'), url: `${canonicalUrl}#gallery` },
+            { name: t('navigation.faq'), url: `${canonicalUrl}#faq` },
+            { name: t('navigation.contact'), url: `${canonicalUrl}#contact` },
+          ]),
         ]}
       />
       <Hero />
       <Services />
       <Gallery />
       <About />
+      <FAQ />
       <Contact />
     </div>
   );
 };
 
 const Layout = ({ children }) => {
-  const location = useLocation();
-  const isAdmin = location.pathname.startsWith('/admin');
   const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -82,25 +94,41 @@ const Layout = ({ children }) => {
 
   return (
     <div className="app-container">
-      {!isAdmin && <Header />}
+      <Header />
       <main className="main-content">
         {children}
       </main>
-      {!isAdmin && <Footer />}
+      <Footer />
     </div>
   );
 };
+
+const LocalizedApp = () => (
+  <Layout>
+    <MainSite />
+  </Layout>
+);
+
+const LocalizedLegalPage = ({ page }) => (
+  <Layout>
+    <LegalPage page={page} />
+  </Layout>
+);
 
 function App() {
   return (
     <ThemeProvider>
       <HelmetProvider>
-        <Layout>
-          <Routes>
-            <Route path="/admin/*" element={<AdminPanel />} />
-            <Route path="/" element={<MainSite />} />
-          </Routes>
-        </Layout>
+        <Routes>
+          <Route path="/" element={<LocalizedApp />} />
+          <Route path="/de" element={<Navigate to="/" replace />} />
+          <Route path="/ru" element={<LocalizedApp />} />
+          <Route path="/impressum" element={<LocalizedLegalPage page="impressum" />} />
+          <Route path="/datenschutz" element={<LocalizedLegalPage page="datenschutz" />} />
+          <Route path="/ru/impressum" element={<LocalizedLegalPage page="impressum" />} />
+          <Route path="/ru/datenschutz" element={<LocalizedLegalPage page="datenschutz" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </HelmetProvider>
     </ThemeProvider>
   );

@@ -1,0 +1,120 @@
+[
+  {
+    "id": "manicure",
+    "key": "manicure",
+    "name": { "ru": "Маникюр", "de": "Maniküre" },
+    "variants": [
+      {
+        "label": { "ru": "Без покрытия", "de": "ohne Lackierung" },
+        "price": "30"
+      },
+      {
+        "label": { "ru": "С базовым покрытием + гель-лак", "de": "mit Basis-Gel + Gel-Lack" },
+        "price": "45"
+      },
+      {
+        "label": { "ru": "С покрытием гелем + гель-лак", "de": "mit Aufbau-Gel + Gel-Lack" },
+        "price": "50"
+      },
+      {
+        "label": {
+          "ru": "С ремонтом / восстановлением формы (более 2 ногтей) + гель-лак",
+          "de": "mit Reparatur / Wiederherstellung der Form (mehr als 2 Nägel) + Gel-Lack"
+        },
+        "price": "55"
+      }
+    ],
+    "icon": "scissors",
+    "color": "#C47088",
+    "order": 1,
+    "isActive": true,
+    "category": "Manicure"
+  },
+  {
+    "id": "extensions",
+    "key": "extensions",
+    "name": { "ru": "Наращивание", "de": "Nagelverlängerung" },
+    "variants": [
+      {
+        "label": { "ru": "Длина 1–3", "de": "Länge 1–3" },
+        "price": "55"
+      },
+      {
+        "label": { "ru": "Длина от 3", "de": "Länge ab 3" },
+        "price": "60"
+      }
+    ],
+    "icon": "sparkles",
+    "color": "#9A4060",
+    "order": 2,
+    "isActive": true,
+    "category": "Nagelverlängerung"
+  },
+  {
+    "id": "design",
+    "key": "design",
+    "name": { "ru": "Дизайн", "de": "Design" },
+    "variants": [
+      {
+        "label": {
+          "ru": "В зависимости от сложности (за ноготь)",
+          "de": "je nach Schwierigkeit (pro Nagel)"
+        },
+        "price": "1–5"
+      }
+    ],
+    "icon": "palette",
+    "color": "#B8894A",
+    "order": 3,
+    "isActive": true,
+    "category": "Nageldesign"
+  },
+  {
+    "id": "smart-pedicure",
+    "key": "smart-pedicure",
+    "name": { "ru": "Смарт-педикюр", "de": "Smart-Pediküre" },
+    "variants": [
+      {
+        "label": { "ru": "Без покрытия", "de": "ohne Lackierung" },
+        "price": "45"
+      },
+      {
+        "label": { "ru": "С обычным лаком", "de": "mit normalem Nagellack" },
+        "price": "50"
+      },
+      {
+        "label": { "ru": "С базовым покрытием + гель-лак", "de": "mit Basis-Gel + Gel-Lack" },
+        "price": "60"
+      }
+    ],
+    "icon": "zap",
+    "color": "#4A9B6A",
+    "order": 4,
+    "isActive": true,
+    "category": "Pediküre"
+  },
+  {
+    "id": "toes-only",
+    "key": "toes-only",
+    "name": { "ru": "Педикюр «только пальчики»", "de": "Pediküre „nur Zehen“" },
+    "variants": [
+      {
+        "label": { "ru": "Без покрытия", "de": "ohne Lackierung" },
+        "price": "30"
+      },
+      {
+        "label": { "ru": "С обычным лаком", "de": "mit normalem Nagellack" },
+        "price": "40"
+      },
+      {
+        "label": { "ru": "С базовым покрытием + гель-лак", "de": "mit Basis-Gel + Gel-Lack" },
+        "price": "45"
+      }
+    ],
+    "icon": "zap",
+    "color": "#5C4A3A",
+    "order": 5,
+    "isActive": true,
+    "category": "Pediküre"
+  }
+]

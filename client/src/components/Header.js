@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { getLanguagePath } from '../utils/localeRoutes';
 import './Header.css';
 
 const Header = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
@@ -19,6 +22,10 @@ const Header = () => {
   };
 
   const changeLanguage = (lng) => {
+    const nextPath = getLanguagePath(lng);
+    if (window.location.pathname !== nextPath) {
+      navigate(nextPath);
+    }
     i18n.changeLanguage(lng);
     setIsLanguageOpen(false);
   };
@@ -57,7 +64,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <h1>SmartNails Stuttgart</h1>
+          <span className="logo-title">SmartNails Stuttgart</span>
         </div>
 
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
@@ -65,7 +72,8 @@ const Header = () => {
             <li><button onClick={() => scrollToSection('hero')}>{t('navigation.home')}</button></li>
             <li><button onClick={() => scrollToSection('services')}>{t('navigation.services')}</button></li>
             <li><button onClick={() => scrollToSection('gallery')}>{t('navigation.gallery')}</button></li>
-            <li><button onClick={() => scrollToSection('about')}>О нас</button></li>
+            <li><button onClick={() => scrollToSection('about')}>{t('navigation.about')}</button></li>
+            <li><button onClick={() => scrollToSection('faq')}>{t('navigation.faq')}</button></li>
             <li><button onClick={() => scrollToSection('contact')}>{t('navigation.contact')}</button></li>
           </ul>
         </nav>

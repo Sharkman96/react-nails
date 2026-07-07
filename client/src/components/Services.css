@@ -1,244 +1,552 @@
+/* ════════════════════════════════════════
+   SERVICES — Luxury card grid
+════════════════════════════════════════ */
 .services {
-  padding: 5rem 0;
-  background: var(--bg-primary);
-  transition: background-color 0.3s ease;
+  padding: var(--section-pad) 0;
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+/* Subtle top diagonal */
+.services::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--accent-primary) 30%,
+    var(--accent-gold) 70%,
+    transparent 100%
+  );
+  opacity: 0.4;
 }
 
 .services-container {
-  max-width: 1200px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 2rem;
 }
 
+/* ─── Header ─── */
 .services-header {
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2rem;
   margin-bottom: 4rem;
 }
 
+.services-header-left {}
+
+.services-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.8rem;
+}
+
+.services-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent-gold);
+}
+
 .services-title {
-  font-size: 3rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ff6b9d, #c44569);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: color 0.3s ease;
-}
-
-.services-underline {
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(135deg, #ff6b9d, #c44569);
-  margin: 0 auto;
-  border-radius: 2px;
-}
-
-.loading-services {
-  text-align: center;
-  padding: 4rem 0;
-}
-
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid var(--skeleton-bg);
-  border-top: 4px solid #ff6b9d;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.loading-services p {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
-}
-
-.no-services {
-  text-align: center;
-  padding: 4rem 0;
-  background: rgba(255, 107, 157, 0.1);
-  border-radius: 15px;
-  margin: 2rem 0;
-}
-
-.no-services p {
-  color: var(--text-secondary);
-  font-size: 1.2rem;
+  line-height: 1.1;
   margin: 0;
-  transition: color 0.3s ease;
 }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+.services-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 340px;
+  line-height: 1.7;
+  text-align: right;
+  align-self: end;
+}
+
+.services-header--solo {
+  grid-template-columns: 1fr;
+  align-items: start;
   margin-bottom: 3rem;
 }
 
+.service-variant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  border-top: 1px solid var(--border-color);
+  margin-top: 0.35rem;
+  padding-top: 0.65rem;
+}
+
+.service-variant-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.service-variant-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.service-variant-label {
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.service-variant-price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--accent-gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ─── Grid ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* ─── Card ─── */
 .service-card {
   background: var(--card-bg);
   border-radius: 20px;
-  padding: 1rem 1rem;
-  text-align: center;
-  box-shadow: 0 10px 30px var(--shadow-light);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  padding: 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   border: 1px solid var(--border-color);
+  box-shadow: 0 2px 12px var(--shadow-light);
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  min-height: min-content;
+  /* visible: иначе scale/hover + мобильный WebKit режут длинные списки цен */
+  overflow: visible;
+  cursor: default;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
 }
 
+/* Accent stripe */
 .service-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
   transform: scaleX(0);
-  transition: transform 0.3s ease;
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Glow on hover */
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(196, 112, 136, 0.06) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px var(--shadow-medium);
+  border-color: rgba(196, 112, 136, 0.25);
 }
 
 .service-card:hover::before {
   transform: scaleX(1);
 }
 
-.service-card:hover {
-  box-shadow: 0 15px 40px var(--shadow-medium);
-  transform: translateY(-5px);
+.service-card:hover::after {
+  opacity: 1;
 }
 
+/* ─── Icon ─── */
 .service-icon {
-  margin-bottom: 1.5rem;
-  display: inline-block;
-  padding: 1rem;
-  border-radius: 50%;
-  background: rgba(255, 107, 157, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.service-icon::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.1;
-  transition: opacity 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease;
+  flex-shrink: 0;
 }
 
 .service-card:hover .service-icon {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 4px 16px rgba(196, 112, 136, 0.22);
 }
 
-.service-card:hover .service-icon::before {
-  opacity: 0.2;
+/* ─── Content (без flex-grow — прайс сразу под названием, не у нижнего края) ─── */
+.service-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 0 auto;
+  min-width: 0;
 }
 
 .service-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 1rem;
-  transition: color 0.3s ease;
+  line-height: 1.2;
+  margin: 0;
+  overflow-wrap: break-word;
 }
 
 .service-description {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+  overflow-wrap: break-word;
 }
 
 .service-details {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .service-price {
+  font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--accent-primary);
-  background: linear-gradient(135deg, #ff6b9d, #c44569);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
 .service-rating {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-top: 1rem;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
-.services-note {
+/* ─── States ─── */
+.loading-services,
+.error-services,
+.no-services {
   text-align: center;
-  padding: 2rem;
-  background: rgba(255, 107, 157, 0.1);
-  border-radius: 15px;
-  border-left: 4px solid #ff6b9d;
+  padding: 5rem 2rem;
 }
 
-.services-note p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-style: italic;
+.loading-spinner {
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  margin: 0 auto 1.2rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-services p,
+.error-services p,
+.no-services p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0 0 1rem;
+}
+
+.retry-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.4rem;
+  background: var(--button-primary);
+  color: #fff;
+  border: none;
+  border-radius: 60px;
+  font-family: var(--font-body);
   font-size: 0.9rem;
-  transition: color 0.3s ease;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196,112,136,0.35);
 }
 
-/* Скелетон для услуг */
-.service-skeleton {
-  background: var(--card-bg);
+/* ─── Website promo / lead tracking ─── */
+.promo-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(184, 137, 74, 0.28);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(250, 247, 242, 0.72)),
+    radial-gradient(circle at 8% 0%, rgba(196, 112, 136, 0.18), transparent 36%);
+  box-shadow: 0 18px 50px rgba(90, 50, 62, 0.12);
+}
+
+[data-theme="dark"] .promo-card {
+  background:
+    linear-gradient(135deg, rgba(28, 22, 18, 0.92), rgba(16, 13, 10, 0.82)),
+    radial-gradient(circle at 8% 0%, rgba(196, 112, 136, 0.2), transparent 36%);
+}
+
+.promo-card-glow {
+  position: absolute;
+  inset: -35% auto auto -10%;
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(196, 112, 136, 0.28), transparent 68%);
+  filter: blur(18px);
+  z-index: -1;
+}
+
+.promo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
   border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: var(--card-bg);
+  color: var(--accent-primary);
+  box-shadow: 0 10px 28px rgba(196, 112, 136, 0.14);
+}
+
+.promo-copy {
+  min-width: 0;
+}
+
+.promo-eyebrow {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+.promo-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.08;
+  color: var(--text-primary);
+}
+
+.promo-description {
+  margin: 0.45rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.promo-code-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+  padding: 0.42rem 0.7rem;
+  border: 1px dashed rgba(184, 137, 74, 0.48);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+[data-theme="dark"] .promo-code-row {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.promo-code-row span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.promo-code-row strong {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.16em;
+  color: var(--accent-primary);
+}
+
+.promo-copy small {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.promo-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-width: max-content;
+  padding: 0.82rem 1.3rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(196, 112, 136, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.promo-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(196, 112, 136, 0.38);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 860px) {
+  .services-header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .services-description {
+    text-align: left;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 920px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
+  .promo-card {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1rem;
+    padding: 1.35rem;
+  }
+
+  .promo-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .promo-cta {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Карточки без variants: убираем «прижимание» цены к низу — на Samsung Chrome цена
+     оказывалась у края экрана и выглядела обрезанной */
+  .service-content {
+    flex: 0 1 auto;
+    flex-grow: 0;
+  }
+
+  .service-details {
+    margin-top: 0.75rem;
+  }
+
+  .service-variant-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
+  .service-variant-price {
+    align-self: flex-end;
+    white-space: normal;
+    text-align: right;
+    font-size: 1rem;
+  }
+
   .services {
-    padding: 4rem 0;
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px) + 1.5rem);
   }
+}
 
-  .services-container {
-    padding: 0 1rem;
+@media (max-width: 600px) {
+  .services {
+    padding-top: 5rem;
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px) + 1.5rem);
   }
-
-  .services-title {
-    font-size: 2.5rem;
-  }
-
+  .services-container { padding: 0 1.2rem; }
   .services-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
-
-  .service-card {
-    padding: 2rem 1.5rem;
-  }
-
-  .service-title {
-    font-size: 1.3rem;
-  }
-
-  .service-price {
-    font-size: 1.5rem;
-  }
-} 
+  .service-card { padding: 1.8rem 1.4rem; }
+  .service-title { font-size: 1.3rem; }
+}

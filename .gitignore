@@ -3,6 +3,8 @@ node_modules/
 client/node_modules/
 
 # Environment variables
+config.env
+config.env.backup
 .env
 .env.local
 .env.development.local

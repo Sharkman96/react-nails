@@ -1,12 +1,42 @@
-const Service = require('../models/Service');
+const fs = require('fs').promises;
+const path = require('path');
+
+const DATA_FILE = path.join(__dirname, '..', 'data', 'services.json');
+
+// Чтение данных из JSON файла
+const readServices = async () => {
+  try {
+    const data = await fs.readFile(DATA_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading services file:', error);
+    return [];
+  }
+};
+
+// Запись данных в JSON файл
+const writeServices = async (services) => {
+  try {
+    await fs.writeFile(DATA_FILE, JSON.stringify(services, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Error writing services file:', error);
+    return false;
+  }
+};
+
+// Генерация уникального ID
+const generateId = () => {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+};
 
 // Функция для генерации ключа услуги на основе названия
 const generateServiceKey = (serviceName) => {
   return serviceName
     .toLowerCase()
-    .replace(/[^a-zа-я0-9\s]/g, '') // убираем спецсимволы
-    .replace(/\s+/g, '-') // заменяем пробелы на дефисы
-    .replace(/[а-я]/g, (match) => { // транслитерация
+    .replace(/[^a-zа-я0-9\s]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/[а-я]/g, (match) => {
       const translitMap = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
         'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
@@ -16,14 +46,17 @@ const generateServiceKey = (serviceName) => {
       };
       return translitMap[match] || match;
     })
-    .slice(0, 50); // ограничиваем длину
+    .slice(0, 50);
 };
 
-// Получить все услуги
+// Получить все услуги (публичный API)
 const getAllServices = async (req, res) => {
   try {
-    const services = await Service.find({ isActive: true }).sort({ order: 1 });
-    res.json(services);
+    const services = await readServices();
+    const activeServices = services
+      .filter(service => service.isActive)
+      .sort((a, b) => a.order - b.order);
+    res.json(activeServices);
   } catch (error) {
     console.error('Get services error:', error);
     res.status(500).json({ message: 'Ошибка при получении услуг' });
@@ -33,8 +66,9 @@ const getAllServices = async (req, res) => {
 // Получить все услуги для админки
 const getAllServicesAdmin = async (req, res) => {
   try {
-    const services = await Service.find().sort({ order: 1 });
-    res.json(services);
+    const services = await readServices();
+    const sortedServices = services.sort((a, b) => a.order - b.order);
+    res.json(sortedServices);
   } catch (error) {
     console.error('Get services admin error:', error);
     res.status(500).json({ message: 'Ошибка при получении услуг' });
@@ -44,7 +78,12 @@ const getAllServicesAdmin = async (req, res) => {
 // Создать новую услугу
 const createService = async (req, res) => {
   try {
+    const services = await readServices();
     const serviceData = { ...req.body };
+    
+    // Генерируем ID
+    serviceData.id = generateId();
+    serviceData._id = serviceData.id; // Для совместимости с фронтендом
     
     // Автоматически генерируем ключ если он не указан
     if (!serviceData.key) {
@@ -52,8 +91,7 @@ const createService = async (req, res) => {
       let key = baseKey;
       let counter = 1;
       
-      // Проверяем уникальность ключа
-      while (await Service.findOne({ key })) {
+      while (services.find(s => s.key === key)) {
         key = `${baseKey}-${counter}`;
         counter++;
       }
@@ -61,14 +99,23 @@ const createService = async (req, res) => {
       serviceData.key = key;
     }
     
-    const service = new Service(serviceData);
-    await service.save();
-    res.status(201).json(service);
+    // Устанавливаем порядок
+    if (!serviceData.order) {
+      const maxOrder = services.reduce((max, s) => Math.max(max, s.order || 0), 0);
+      serviceData.order = maxOrder + 1;
+    }
+    
+    // Устанавливаем isActive по умолчанию
+    if (serviceData.isActive === undefined) {
+      serviceData.isActive = true;
+    }
+    
+    services.push(serviceData);
+    await writeServices(services);
+    
+    res.status(201).json(serviceData);
   } catch (error) {
     console.error('Create service error:', error);
-    if (error.code === 11000) {
-      return res.status(400).json({ message: 'Услуга с таким ключом уже существует' });
-    }
     res.status(500).json({ message: 'Ошибка при создании услуги' });
   }
 };
@@ -77,17 +124,18 @@ const createService = async (req, res) => {
 const updateService = async (req, res) => {
   try {
     const { id } = req.params;
-    const service = await Service.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const services = await readServices();
     
-    if (!service) {
+    const index = services.findIndex(s => s.id === id || s._id === id);
+    
+    if (index === -1) {
       return res.status(404).json({ message: 'Услуга не найдена' });
     }
     
-    res.json(service);
+    services[index] = { ...services[index], ...req.body };
+    await writeServices(services);
+    
+    res.json(services[index]);
   } catch (error) {
     console.error('Update service error:', error);
     res.status(500).json({ message: 'Ошибка при обновлении услуги' });
@@ -98,11 +146,16 @@ const updateService = async (req, res) => {
 const deleteService = async (req, res) => {
   try {
     const { id } = req.params;
-    const service = await Service.findByIdAndDelete(id);
+    const services = await readServices();
     
-    if (!service) {
+    const index = services.findIndex(s => s.id === id || s._id === id);
+    
+    if (index === -1) {
       return res.status(404).json({ message: 'Услуга не найдена' });
     }
+    
+    services.splice(index, 1);
+    await writeServices(services);
     
     res.json({ message: 'Услуга успешно удалена' });
   } catch (error) {
@@ -117,4 +170,4 @@ module.exports = {
   createService,
   updateService,
   deleteService
-}; 
+};

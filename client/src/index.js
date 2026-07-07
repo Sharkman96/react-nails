@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './i18n';
 import './index.css';
@@ -19,8 +19,7 @@ const LoadingFallback = () => (
   </div>
 );
 
-const root = createRoot(document.getElementById('root'));
-root.render(
+const app = (
   <React.StrictMode>
     <Suspense fallback={<LoadingFallback />}>
       <BrowserRouter>
@@ -29,6 +28,14 @@ root.render(
     </Suspense>
   </React.StrictMode>
 );
+
+const container = document.getElementById('root');
+
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

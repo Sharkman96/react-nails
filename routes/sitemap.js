@@ -1,90 +1,98 @@
 const express = require('express');
 const router = express.Router();
-const GalleryItem = require('../models/GalleryItem');
-const Service = require('../models/Service');
 
-// Генерация sitemap.xml
-router.get('/sitemap.xml', async (req, res) => {
-  try {
-    const baseUrl = 'https://stuttgartnails.de';
-    const currentDate = new Date().toISOString();
-    
-    // Получаем данные для sitemap
-    const galleryItems = await GalleryItem.find({ isActive: true }).select('_id updatedAt');
-    const services = await Service.find({ isActive: true }).select('_id updatedAt');
-    
-    // Статические страницы
-    const staticPages = [
-      { url: '/', priority: '1.0', changefreq: 'daily' },
-      { url: '/services', priority: '0.9', changefreq: 'weekly' },
-      { url: '/gallery', priority: '0.8', changefreq: 'weekly' },
-      { url: '/contact', priority: '0.7', changefreq: 'monthly' },
-      { url: '/about', priority: '0.6', changefreq: 'monthly' }
-    ];
-    
-    // Динамические страницы галереи
-    const galleryPages = galleryItems.map(item => ({
-      url: `/gallery/${item._id}`,
-      priority: '0.7',
-      changefreq: 'monthly',
-      lastmod: item.updatedAt.toISOString()
-    }));
-    
-    // Динамические страницы услуг
-    const servicePages = services.map(service => ({
-      url: `/services/${service._id}`,
-      priority: '0.8',
+const BASE_URL = 'https://stuttgartnails.de';
+
+/** Одностраничный сайт: только реальные URL без «мёртвых» /services/:id */
+const buildSitemapXml = () => {
+  const lastmod = new Date().toISOString().split('T')[0];
+  const pages = [
+    {
+      loc: `${BASE_URL}/`,
       changefreq: 'weekly',
-      lastmod: service.updatedAt.toISOString()
-    }));
-    
-    // Объединяем все страницы
-    const allPages = [...staticPages, ...galleryPages, ...servicePages];
-    
-    // Генерируем XML
-    let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
-    
-    allPages.forEach(page => {
-      sitemap += '  <url>\n';
-      sitemap += `    <loc>${baseUrl}${page.url}</loc>\n`;
-      sitemap += `    <lastmod>${page.lastmod || currentDate}</lastmod>\n`;
-      sitemap += `    <changefreq>${page.changefreq}</changefreq>\n`;
-      sitemap += `    <priority>${page.priority}</priority>\n`;
-      sitemap += '  </url>\n';
+      priority: '1.0',
+      alternates: [
+        { hreflang: 'x-default', href: `${BASE_URL}/` },
+        { hreflang: 'de', href: `${BASE_URL}/` },
+        { hreflang: 'de-DE', href: `${BASE_URL}/` },
+        { hreflang: 'ru', href: `${BASE_URL}/ru` },
+        { hreflang: 'ru-RU', href: `${BASE_URL}/ru` },
+      ],
+    },
+    {
+      loc: `${BASE_URL}/ru`,
+      changefreq: 'weekly',
+      priority: '0.9',
+      alternates: [
+        { hreflang: 'x-default', href: `${BASE_URL}/` },
+        { hreflang: 'de', href: `${BASE_URL}/` },
+        { hreflang: 'de-DE', href: `${BASE_URL}/` },
+        { hreflang: 'ru', href: `${BASE_URL}/ru` },
+        { hreflang: 'ru-RU', href: `${BASE_URL}/ru` },
+      ],
+    },
+    { loc: `${BASE_URL}/impressum`, changefreq: 'monthly', priority: '0.5' },
+    { loc: `${BASE_URL}/datenschutz`, changefreq: 'monthly', priority: '0.5' },
+    { loc: `${BASE_URL}/ru/impressum`, changefreq: 'monthly', priority: '0.5' },
+    { loc: `${BASE_URL}/ru/datenschutz`, changefreq: 'monthly', priority: '0.5' },
+  ];
+
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
+
+  pages.forEach((page) => {
+    xml += '  <url>\n';
+    xml += `    <loc>${page.loc}</loc>\n`;
+    page.alternates?.forEach((alternate) => {
+      xml += `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${alternate.href}" />\n`;
     });
-    
-    sitemap += '</urlset>';
-    
-    // Устанавливаем заголовки
-    res.set('Content-Type', 'application/xml');
-    res.set('Cache-Control', 'public, max-age=3600'); // Кэшируем на 1 час
-    res.send(sitemap);
-    
-  } catch (error) {
-    console.error('Error generating sitemap:', error);
-    res.status(500).send('Error generating sitemap');
-  }
+    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+    xml += `    <priority>${page.priority}</priority>\n`;
+    xml += '  </url>\n';
+  });
+
+  xml += '</urlset>';
+  return xml;
+};
+
+router.get('/sitemap.xml', (req, res) => {
+  res.set('Content-Type', 'application/xml');
+  res.set('Cache-Control', 'public, max-age=3600');
+  res.send(buildSitemapXml());
 });
 
-// Генерация robots.txt
-router.get('/robots.txt', (req, res) => {
-  const robotsTxt = `User-agent: *
+const ROBOTS_TXT = `# https://www.robotstxt.org/robotstxt.html
+User-agent: *
 Allow: /
-
-# Sitemap
-Sitemap: https://stuttgartnails.de/sitemap.xml
-
-# Disallow admin panel
 Disallow: /admin/
 Disallow: /api/
 
-# Crawl-delay
-Crawl-delay: 1`;
+Sitemap: https://stuttgartnails.de/sitemap.xml
 
-  res.set('Content-Type', 'text/plain');
-  res.set('Cache-Control', 'public, max-age=86400'); // Кэшируем на 24 часа
-  res.send(robotsTxt);
+LLMs-Txt: https://stuttgartnails.de/llms.txt
+LLMs-Txt-Full: https://stuttgartnails.de/llms-full.txt
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+`;
+
+router.get('/robots.txt', (req, res) => {
+  res.set('Content-Type', 'text/plain; charset=utf-8');
+  res.set('Cache-Control', 'public, max-age=86400');
+  res.send(ROBOTS_TXT);
 });
 
-module.exports = router; 
+module.exports = router;

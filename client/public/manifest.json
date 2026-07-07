@@ -1,11 +1,17 @@
 {
-  "short_name": "Nail Master",
-  "name": "Nail Master - Профессиональный маникюр",
-  "description": "Профессиональные услуги маникюра и педикюра с многоязычной поддержкой",
+  "short_name": "SmartNails",
+  "name": "SmartNails Stuttgart - Professionelle Maniküre",
+  "description": "Professionelle Maniküre und Pediküre in Stuttgart. Nageldesign, Gel-Verlängerung, Nail Art.",
   "icons": [
     {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "48x48 32x32 16x16",
       "type": "image/x-icon"
     },
     {
@@ -27,13 +33,13 @@
   "background_color": "#ffffff",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "ru",
+  "lang": "de",
   "categories": ["beauty", "lifestyle", "health"],
   "shortcuts": [
     {
-      "name": "Записаться",
-      "short_name": "Запись",
-      "description": "Записаться на маникюр",
+      "name": "Termin buchen",
+      "short_name": "Buchen",
+      "description": "Termin für Maniküre buchen",
       "url": "/?action=book",
       "icons": [
         {
@@ -43,9 +49,9 @@
       ]
     },
     {
-      "name": "Галерея работ",
-      "short_name": "Галерея",
-      "description": "Посмотреть работы мастера",
+      "name": "Galerie",
+      "short_name": "Galerie",
+      "description": "Arbeiten des Meisters ansehen",
       "url": "/?section=gallery",
       "icons": [
         {
@@ -55,9 +61,9 @@
       ]
     },
     {
-      "name": "Услуги и цены",
-      "short_name": "Услуги",
-      "description": "Посмотреть услуги и цены",
+      "name": "Dienstleistungen",
+      "short_name": "Services",
+      "description": "Dienstleistungen und Preise ansehen",
       "url": "/?section=services",
       "icons": [
         {
@@ -65,20 +71,6 @@
           "sizes": "192x192"
         }
       ]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "screenshot-narrow.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow"
     }
   ]
 }

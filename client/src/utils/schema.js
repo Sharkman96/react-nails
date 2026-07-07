@@ -1,5 +1,41 @@
 // Утилиты для создания структурированных данных Schema.org
 
+export const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/sZyBieEk21ARVjF37';
+
+export const BUSINESS = {
+  name: "SmartNails Stuttgart",
+  alternateName: ["Stuttgart Nails", "smartnails_stuttgart"],
+  url: "https://stuttgartnails.de",
+  phone: "+49-170-1264472",
+  email: "snezhana.aksenchikova@gmail.com",
+  logo: "https://stuttgartnails.de/logo512.png",
+  ogImage: "https://stuttgartnails.de/og-image.jpg",
+  image: [
+    "https://stuttgartnails.de/og-image.jpg",
+    "https://stuttgartnails.de/images/gallery/20251219_135103.jpg",
+  ],
+  address: {
+    street: "Im Kaisemer 26A",
+    city: "Stuttgart",
+    postalCode: "70191",
+    region: "Baden-Württemberg",
+    country: "DE",
+  },
+  geo: {
+    latitude: 48.787838,
+    longitude: 9.178071,
+  },
+  priceRange: "€€",
+  openingHours: ["Mo-Sa by appointment"],
+  googleMaps: GOOGLE_MAPS_URL,
+  sameAs: [
+    "https://instagram.com/smartnails_stuttgart",
+    "https://wa.me/491701264472",
+    GOOGLE_MAPS_URL,
+  ],
+  languages: ["German", "Russian"],
+};
+
 export const createLocalBusinessSchema = (businessData) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -48,8 +84,9 @@ export const createServiceSchema = (serviceData) => ({
   "name": serviceData.name,
   "description": serviceData.description,
   "provider": {
-    "@type": "LocalBusiness",
-    "name": "Smart Nails Stuttgart"
+    "@type": "BeautySalon",
+    "@id": `${BUSINESS.url}/#beautysalon`,
+    "name": BUSINESS.name,
   },
   "areaServed": {
     "@type": "City",
@@ -62,6 +99,105 @@ export const createServiceSchema = (serviceData) => ({
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock"
   }
+});
+
+export const createBeautySalonSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "@id": `${BUSINESS.url}/#beautysalon`,
+  "name": BUSINESS.name,
+  "alternateName": BUSINESS.alternateName,
+  "description":
+    "Nagelstudio in Stuttgart-Nord: Maniküre, Smart-Pediküre, Gel-Lack, Nagelverlängerung und Nageldesign. Termine nach Vereinbarung per WhatsApp oder Instagram.",
+  "url": BUSINESS.url,
+  "telephone": BUSINESS.phone,
+  "logo": BUSINESS.logo,
+  "image": BUSINESS.image,
+  "priceRange": BUSINESS.priceRange,
+  "openingHours": BUSINESS.openingHours,
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      "description": "Termine nach Vereinbarung per WhatsApp oder Instagram",
+    },
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": BUSINESS.address.street,
+    "addressLocality": BUSINESS.address.city,
+    "postalCode": BUSINESS.address.postalCode,
+    "addressRegion": BUSINESS.address.region,
+    "addressCountry": BUSINESS.address.country,
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": BUSINESS.geo.latitude,
+    "longitude": BUSINESS.geo.longitude,
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Stuttgart",
+  },
+  "hasMap": BUSINESS.googleMaps,
+  "sameAs": BUSINESS.sameAs,
+  "knowsLanguage": BUSINESS.languages,
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Termine",
+      "value": "Nach Vereinbarung / по предварительной записи",
+    },
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Nagelservice Preise",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Maniküre",
+          "description": "Maniküre ohne Lackierung, mit Gel-Lack oder Aufbau-Gel.",
+        },
+        "priceCurrency": "EUR",
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Nagelverlängerung",
+          "description": "Nagelverlängerung mit Gel in verschiedenen Längen.",
+        },
+        "priceCurrency": "EUR",
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Smart-Pediküre",
+          "description": "Smart-Pediküre mit Lackierungsoptionen.",
+        },
+        "priceCurrency": "EUR",
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Nageldesign",
+          "description": "Nail Art und Design je nach Schwierigkeit.",
+        },
+        "priceCurrency": "EUR",
+      },
+    ],
+  },
 });
 
 export const createBreadcrumbSchema = (breadcrumbs) => ({
@@ -78,7 +214,7 @@ export const createBreadcrumbSchema = (breadcrumbs) => ({
 export const createReviewSchema = (reviews) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Smart Nails Stuttgart",
+  "name": BUSINESS.name,
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": reviews.averageRating,
@@ -129,45 +265,43 @@ export const createImageObjectSchema = (imageData) => ({
 export const createWebSiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Smart Nails Stuttgart",
-  "url": "https://stuttgartnails.de",
-  "description": "Профессиональный маникюр и педикюр в Штутгарте. Современные технологии, качественные материалы, опытные мастера.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://stuttgartnails.de/search?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
+  "@id": `${BUSINESS.url}/#website`,
+  "name": BUSINESS.name,
+  "alternateName": ["Stuttgart Nails", "stuttgartnails.de"],
+  "url": BUSINESS.url,
+  "description":
+    "Professionelle Maniküre, Pediküre, Gel-Lack, Nagelverlängerung und Naildesign in Stuttgart. Termin über WhatsApp oder Instagram.",
+  "inLanguage": ["de", "ru"],
+  "publisher": {
+    "@id": `${BUSINESS.url}/#beautysalon`,
   },
-  "sameAs": [
-    "https://instagram.com/smartnails_stuttgart",
-    "https://facebook.com/smartnailsstuttgart"
-  ]
+  "sameAs": BUSINESS.sameAs,
 });
 
 export const createOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Smart Nails Stuttgart",
-  "url": "https://stuttgartnails.de",
-  "logo": "https://stuttgartnails.de/images/logo.png",
-  "description": "Профессиональная студия маникюра и педикюра в Штутгарте",
+  "@id": `${BUSINESS.url}/#organization`,
+  "name": BUSINESS.name,
+  "url": BUSINESS.url,
+  "logo": BUSINESS.logo,
+  "description":
+    "Nagelstudio in Stuttgart: Maniküre, Smart-Pediküre, Gel-Lack und Nageldesign. Kommunikation auf Deutsch und Russisch.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Königstraße 123",
-    "addressLocality": "Stuttgart",
-    "postalCode": "70173",
-    "addressCountry": "DE"
+    "streetAddress": BUSINESS.address.street,
+    "addressLocality": BUSINESS.address.city,
+    "postalCode": BUSINESS.address.postalCode,
+    "addressRegion": BUSINESS.address.region,
+    "addressCountry": BUSINESS.address.country,
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+49-711-1234567",
+    "telephone": BUSINESS.phone,
     "contactType": "customer service",
-    "availableLanguage": ["German", "Russian", "English"]
+    "availableLanguage": BUSINESS.languages,
+    "areaServed": "DE",
   },
-  "sameAs": [
-    "https://instagram.com/smartnails_stuttgart",
-    "https://facebook.com/smartnailsstuttgart"
-  ]
+  "sameAs": BUSINESS.sameAs,
+  "hasMap": BUSINESS.googleMaps,
 }); 

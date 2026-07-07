@@ -1,118 +1,124 @@
 :root {
-  /* Светлая тема (по умолчанию) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-muted: #999999;
-  --border-color: #e1e5e9;
-  --border-hover: #d1d5d9;
-  --shadow-light: rgba(0, 0, 0, 0.1);
-  --shadow-medium: rgba(0, 0, 0, 0.15);
-  --shadow-heavy: rgba(0, 0, 0, 0.2);
-  --shadow-dark: rgba(0, 0, 0, 0.3);
-  --accent-primary: #ff6b9d;
-  --accent-secondary: #c44569;
-  --success: #43e97b;
-  --warning: #ffa726;
-  --error: #ff6b6b;
-  --info: #4facfe;
-  --overlay: rgba(0, 0, 0, 0.5);
-  --card-bg: #ffffff;
-  --input-bg: #ffffff;
-  --input-border: #e1e5e9;
-  --input-focus: #ff6b9d;
-  --button-primary: linear-gradient(135deg, #ff6b9d, #c44569);
-  --button-secondary: #f8f9fa;
-  --button-text: #ffffff;
-  --button-text-secondary: #666666;
-  --modal-bg: #ffffff;
-  --tooltip-bg: #333333;
-  --tooltip-text: #ffffff;
-  --skeleton-bg: #f0f0f0;
-  --skeleton-shimmer: #e0e0e0;
+  /* Светлая тема — "Warm Ivory" */
+  --bg-primary: #FAF7F2;
+  --bg-secondary: #F2EBE0;
+  --bg-tertiary: #E8DDD0;
+  --text-primary: #1A1410;
+  --text-secondary: #5C4A3A;
+  --text-muted: #9A8A7A;
+  --border-color: #E0D4C4;
+  --border-hover: #C8BAAA;
+  --shadow-light: rgba(26, 20, 16, 0.06);
+  --shadow-medium: rgba(26, 20, 16, 0.12);
+  --shadow-heavy: rgba(26, 20, 16, 0.22);
+  --shadow-dark: rgba(26, 20, 16, 0.40);
+  --accent-primary: #C47088;
+  --accent-secondary: #9A4060;
+  --accent-gold: #B8894A;
+  --accent-gold-light: #D4A96A;
+  --success: #4A9B6A;
+  --warning: #C4903A;
+  --error: #C45050;
+  --info: #4A78B8;
+  --overlay: rgba(26, 20, 16, 0.72);
+  --card-bg: #FFFFFF;
+  --input-bg: #FFFFFF;
+  --input-border: #E0D4C4;
+  --input-focus: #C47088;
+  --button-primary: linear-gradient(135deg, #C47088, #9A4060);
+  --button-secondary: #F2EBE0;
+  --button-text: #FFFFFF;
+  --button-text-secondary: #5C4A3A;
+  --modal-bg: #FFFFFF;
+  --tooltip-bg: #1A1410;
+  --tooltip-text: #FAF7F2;
+  --skeleton-bg: #EFE8DC;
+  --skeleton-shimmer: #E5DCD0;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Layout */
+  --header-height: 80px;
+  --section-pad: 7rem;
+  --container-width: 1240px;
 }
 
 [data-theme="dark"] {
-  /* Темная тема */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --bg-tertiary: #404040;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --text-muted: #999999;
-  --border-color: #404040;
-  --border-hover: #505050;
-  --shadow-light: rgba(0, 0, 0, 0.3);
-  --shadow-medium: rgba(0, 0, 0, 0.4);
-  --shadow-heavy: rgba(0, 0, 0, 0.5);
-  --shadow-dark: rgba(0, 0, 0, 0.6);
-  --accent-primary: #ff6b9d;
-  --accent-secondary: #c44569;
-  --success: #43e97b;
-  --warning: #ffa726;
-  --error: #ff6b6b;
-  --info: #4facfe;
-  --overlay: rgba(0, 0, 0, 0.7);
-  --card-bg: #2d2d2d;
-  --input-bg: #404040;
-  --input-border: #505050;
-  --input-focus: #ff6b9d;
-  --button-primary: linear-gradient(135deg, #ff6b9d, #c44569);
-  --button-secondary: #404040;
-  --button-text: #ffffff;
-  --button-text-secondary: #cccccc;
-  --modal-bg: #2d2d2d;
-  --tooltip-bg: #ffffff;
-  --tooltip-text: #333333;
-  --skeleton-bg: #404040;
-  --skeleton-shimmer: #505050;
+  /* Тёмная тема — "Midnight Atelier" */
+  --bg-primary: #0C0A08;
+  --bg-secondary: #131109;
+  --bg-tertiary: #1C1A14;
+  --text-primary: #F5EFE5;
+  --text-secondary: #C4B8A8;
+  --text-muted: #7A6A5A;
+  --border-color: #2A2218;
+  --border-hover: #3C3028;
+  --shadow-light: rgba(0, 0, 0, 0.30);
+  --shadow-medium: rgba(0, 0, 0, 0.50);
+  --shadow-heavy: rgba(0, 0, 0, 0.65);
+  --shadow-dark: rgba(0, 0, 0, 0.80);
+  --accent-primary: #D4899A;
+  --accent-secondary: #E0A8B8;
+  --accent-gold: #C9A050;
+  --accent-gold-light: #DDB870;
+  --success: #5AAB7A;
+  --warning: #D4A050;
+  --error: #D46060;
+  --info: #5A88C8;
+  --overlay: rgba(0, 0, 0, 0.82);
+  --card-bg: #181410;
+  --input-bg: #1C1A14;
+  --input-border: #2A2218;
+  --input-focus: #D4899A;
+  --button-primary: linear-gradient(135deg, #D4899A, #B06078);
+  --button-secondary: #1C1A14;
+  --button-text: #FFFFFF;
+  --button-text-secondary: #C4B8A8;
+  --modal-bg: #181410;
+  --tooltip-bg: #F5EFE5;
+  --tooltip-text: #1A1410;
+  --skeleton-bg: #201C18;
+  --skeleton-shimmer: #2A2420;
 }
 
-/* Плавные переходы для всех элементов */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Глобальные стили для темной темы */
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-/* Стили для скроллбара */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
   background: var(--border-hover);
+  border-radius: 3px;
 }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-/* Стили для выделения текста */
+/* ─── Selection ─── */
 ::selection {
   background-color: var(--accent-primary);
-  color: var(--button-text);
+  color: #fff;
 }
 
-/* Стили для фокуса */
-:focus {
-  outline: 2px solid var(--input-focus);
-  outline-offset: 2px;
+/* ─── Focus ─── */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
 }
+:focus:not(:focus-visible) { outline: none; }
 
-/* Стили для disabled элементов */
+/* ─── Disabled ─── */
 :disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
-} 
+}
+
+/* ─── Smooth theme transition for key properties only ─── */
+body,
+.header,
+.card,
+.service-card,
+.gallery-item,
+.about-feature,
+.contact-btn,
+.footer {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}

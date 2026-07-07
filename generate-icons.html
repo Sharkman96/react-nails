@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Генератор иконок SmartNails</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #ff6b9d; }
+        .icon-preview { display: flex; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+        .icon-box { background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        canvas { border: 1px solid #ddd; border-radius: 10px; }
+        button { background: #ff6b9d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #c44569; }
+        .instructions { background: white; padding: 20px; border-radius: 10px; margin-top: 20px; }
+        code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Генератор иконок SmartNails</h1>
+        <p>Нажмите на кнопки для скачивания иконок нужного размера.</p>
+        
+        <div class="icon-preview">
+            <div class="icon-box">
+                <h3>512x512</h3>
+                <canvas id="canvas512" width="512" height="512"></canvas>
+                <br><button onclick="download('canvas512', 'logo512.png')">Скачать logo512.png</button>
+            </div>
+            <div class="icon-box">
+                <h3>192x192</h3>
+                <canvas id="canvas192" width="192" height="192"></canvas>
+                <br><button onclick="download('canvas192', 'logo192.png')">Скачать logo192.png</button>
+            </div>
+            <div class="icon-box">
+                <h3>32x32 (favicon)</h3>
+                <canvas id="canvas32" width="32" height="32"></canvas>
+                <br><button onclick="download('canvas32', 'favicon-32.png')">Скачать favicon-32.png</button>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Инструкция:</h3>
+            <ol>
+                <li>Откройте этот файл в браузере (двойной клик)</li>
+                <li>Скачайте все три иконки</li>
+                <li>Скопируйте <code>logo512.png</code> и <code>logo192.png</code> в папку <code>client/public/</code></li>
+                <li>Для favicon используйте онлайн-конвертер (например, favicon.io) чтобы создать <code>favicon.ico</code> из <code>favicon-32.png</code></li>
+                <li>Пересоберите проект: <code>cd client && npm run build</code></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function drawIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            const scale = size / 512;
+            
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#ff6b9d');
+            gradient.addColorStop(1, '#c44569');
+            
+            // Background circle
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 10*scale, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Nail polish bottle body
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.beginPath();
+            ctx.roundRect(180*scale, 140*scale, 152*scale, 80*scale, 8*scale);
+            ctx.fill();
+            
+            // Bottle neck
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.roundRect(226*scale, 100*scale, 60*scale, 50*scale, 5*scale);
+            ctx.fill();
+            
+            // Nail polish drop (nail shape)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.beginPath();
+            ctx.ellipse(256*scale, 340*scale, 80*scale, 100*scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Sparkles
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.beginPath();
+            ctx.arc(160*scale, 300*scale, 8*scale, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(352*scale, 280*scale, 6*scale, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.beginPath();
+            ctx.arc(180*scale, 400*scale, 5*scale, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(340*scale, 380*scale, 7*scale, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        function download(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Draw all icons on load
+        window.onload = function() {
+            drawIcon(document.getElementById('canvas512'));
+            drawIcon(document.getElementById('canvas192'));
+            drawIcon(document.getElementById('canvas32'));
+        };
+    </script>
+</body>
+</html>

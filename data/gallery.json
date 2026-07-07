@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "title": {
+      "ru": "Французский маникюр",
+      "de": "French Maniküre"
+    },
+    "category": "manicure",
+    "imageUrl": "/images/gallery/french-manicure.jpg",
+    "color": "#ff6b9d",
+    "order": 1,
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "title": {
+      "ru": "Градиентный дизайн",
+      "de": "Gradient Design"
+    },
+    "category": "design",
+    "imageUrl": "/images/gallery/gradient-design.jpg",
+    "color": "#a855f7",
+    "order": 2,
+    "isActive": true
+  },
+  {
+    "id": "3",
+    "title": {
+      "ru": "Геометрический узор",
+      "de": "Geometrisches Muster"
+    },
+    "category": "design",
+    "imageUrl": "/images/gallery/geometric-pattern.jpg",
+    "color": "#3b82f6",
+    "order": 3,
+    "isActive": true
+  },
+  {
+    "id": "4",
+    "title": {
+      "ru": "Наращивание миндаль",
+      "de": "Mandel-Verlängerung"
+    },
+    "category": "extensions",
+    "imageUrl": "/images/gallery/almond-extensions.jpg",
+    "color": "#10b981",
+    "order": 4,
+    "isActive": true
+  },
+  {
+    "id": "5",
+    "title": {
+      "ru": "Педикюр с дизайном",
+      "de": "Pediküre mit Design"
+    },
+    "category": "pedicure",
+    "imageUrl": "/images/gallery/pedicure-design.jpg",
+    "color": "#f59e0b",
+    "order": 5,
+    "isActive": true
+  },
+  {
+    "id": "6",
+    "title": {
+      "ru": "Минималистичный стиль",
+      "de": "Minimalistischer Stil"
+    },
+    "category": "manicure",
+    "imageUrl": "/images/gallery/minimalist-style.jpg",
+    "color": "#ec4899",
+    "order": 6,
+    "isActive": true
+  }
+]

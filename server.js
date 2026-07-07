@@ -3,14 +3,13 @@ const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
-const mongoose = require('mongoose');
+const fs = require('fs');
 require('dotenv').config({ path: './config.env' });
 
 // Импорт middleware
 const { 
   cacheMiddleware, 
   rateLimitMiddleware,
-  adminRateLimitMiddleware,
   authRateLimitMiddleware,
   staticCacheMiddleware, 
   compressionMiddleware 
@@ -51,16 +50,11 @@ const {
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Подключение к MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nailart_studio')
-.then(() => {
-  logger.info('MongoDB подключена');
-  console.log('MongoDB подключена');
-})
-.catch(err => {
-  logger.error('Ошибка подключения к MongoDB', { error: err.message });
-  console.error('Ошибка подключения к MongoDB:', err);
-});
+// Проверяем наличие папки data
+const dataDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
 
 // Базовые middleware безопасности
 app.use(compression());
@@ -141,16 +135,6 @@ app.use('/api/auth', authRateLimitMiddleware);
 app.use('/api/auth', authRoutes);
 app.use('/api', csrfRoutes); // CSRF маршруты
 
-// Админские роуты с повышенным лимитом запросов
-app.use('/api/admin', adminRateLimitMiddleware);
-
-// Админские роуты без CSRF (только с авторизацией)
-// Убираем кэширование для админских операций чтобы изменения отражались мгновенно
-app.use('/api/admin/services', serviceRoutes);
-app.use('/api/admin/gallery', galleryRoutes);
-
-app.use('/api/admin/analytics', analyticsRoutes);
-
 // Обычный rate limiting для публичных API
 app.use('/api/', rateLimitMiddleware);
 
@@ -169,6 +153,15 @@ app.use('/api/analytics', analyticsRoutes);
 
 // Sitemap routes
 app.use('/', sitemapRoutes);
+
+// LLMs.txt routes for AI crawlers (RAO)
+app.get('/llms.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/llms.txt'));
+});
+
+app.get('/llms-full.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/llms-full.txt'));
+});
 
 // API routes
 app.get('/api/health', (req, res) => {
@@ -229,7 +222,14 @@ app.get('/uploads/:filename', imageResizeMiddleware, (req, res, next) => {
 
 // Serve uploaded files с кэшированием
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
-  maxAge: '7d', // Кэшируем изображения на 7 дней
+  maxAge: '7d',
+  etag: true,
+  lastModified: true
+}));
+
+// Serve gallery images from public/images
+app.use('/images', express.static(path.join(__dirname, 'public', 'images'), {
+  maxAge: '30d',
   etag: true,
   lastModified: true
 }));
@@ -241,6 +241,15 @@ app.use('/assets', express.static(path.join(__dirname, 'client/src/assets'), {
   lastModified: true
 }));
 
+// Service Worker — без долгого кеша, чтобы браузер подхватывал новую версию после деплоя
+app.get('/sw.js', (req, res) => {
+  res.set('Cache-Control', 'no-cache');
+  res.sendFile(path.join(__dirname, 'client/build/sw.js'), {
+    etag: true,
+    lastModified: true,
+  });
+});
+
 // Serve static files from the React app с кэшированием
 app.use(express.static(path.join(__dirname, 'client/build'), {
   maxAge: '1d', // Кэшируем статические файлы на 1 день
@@ -248,14 +257,15 @@ app.use(express.static(path.join(__dirname, 'client/build'), {
   lastModified: true
 }));
 
-// SEO-friendly routes
-app.get('/ru', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+const sendLocaleIndex = (locale, res) => {
+  const localeIndex = path.join(__dirname, 'client/build', locale, 'index.html');
+  const fallbackIndex = path.join(__dirname, 'client/build/index.html');
+  res.sendFile(fs.existsSync(localeIndex) ? localeIndex : fallbackIndex);
+};
 
-app.get('/de', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+// SEO-friendly locale routes
+app.get('/ru', (req, res) => sendLocaleIndex('ru', res));
+app.get('/de', (req, res) => res.redirect(301, '/'));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
@@ -310,8 +320,7 @@ app.listen(PORT, () => {
   });
   
   console.log(`Server is running on port ${PORT}`);
-  console.log('Access the app at: http://localhost:5000');
-  console.log('Access admin panel at: http://localhost:5000/admin');
+  console.log(`Access the app at: http://localhost:${PORT}`);
   console.log('Security features enabled:');
   console.log('✅ CSRF Protection');
   console.log('✅ Rate Limiting');

@@ -1,34 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico" sizes="48x48 32x32 16x16" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta name="theme-color" content="#C47088" />
+    <meta name="color-scheme" content="light dark" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SmartNails Stuttgart: Nagelstudio für Maniküre, Pediküre, Gel-Lack, Nagelverlängerung und Naildesign in 70191 Stuttgart, Im Kaisemer 26A. Termin per WhatsApp oder Instagram." />
+    <meta name="keywords" content="Maniküre Stuttgart, Nagelstudio Stuttgart, Nails Stuttgart, Pediküre Stuttgart, Nageldesign Stuttgart, Naildesign Stuttgart, Gel-Nägel Stuttgart, Nagelverlängerung Stuttgart, SmartNails, маникюр Штутгарт" />
+    <meta name="author" content="SmartNails Stuttgart" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta http-equiv="content-language" content="de" />
+    <!-- Canonical & hreflang (дублируются React Helmet на /ru) -->
+    <link rel="canonical" href="https://stuttgartnails.de/" />
+    <link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/" />
+    <link rel="alternate" hreflang="de" href="https://stuttgartnails.de/" />
+    <link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/" />
+    <link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru" />
+    <link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://stuttgartnails.de/sitemap.xml" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- AI / LLM discovery (llms.txt) -->
+    <link rel="alternate" type="text/plain" title="LLMs.txt" href="%PUBLIC_URL%/llms.txt" />
+    <link rel="alternate" type="text/plain" title="LLMs-full" href="%PUBLIC_URL%/llms-full.txt" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://instagram.com" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://stuttgartnails.de/" />
+    <meta property="og:title" content="Maniküre Stuttgart | Nagelstudio SmartNails" />
+    <meta property="og:description" content="Nagelstudio in Stuttgart für Maniküre, Pediküre, Gel-Lack, Nagelverlängerung und Naildesign. Termine per WhatsApp oder Instagram." />
+    <meta property="og:image" content="https://stuttgartnails.de/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale:alternate" content="ru_RU" />
+    <meta property="og:site_name" content="SmartNails Stuttgart" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://stuttgartnails.de/" />
+    <meta name="twitter:title" content="Maniküre Stuttgart | Nagelstudio SmartNails" />
+    <meta name="twitter:description" content="Nagelstudio in Stuttgart für Maniküre, Pediküre, Gel-Lack, Nagelverlängerung und Naildesign." />
+    <meta name="twitter:image" content="https://stuttgartnails.de/og-image.jpg" />
+    
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content="DE-BW" />
+    <meta name="geo.placename" content="Stuttgart" />
+    <meta name="geo.position" content="48.787838;9.178071" />
+    <meta name="ICBM" content="48.787838, 9.178071" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="rating" content="general" />
+    <meta name="distribution" content="global" />
+    <meta name="coverage" content="Im Kaisemer 26A, 70191 Stuttgart, Baden-Württemberg, Deutschland" />
+    <meta name="target" content="all" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="format-detection" content="telephone=yes" />
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SmartNails Stuttgart" />
+    
+    <!-- Microsoft Meta Tags -->
+    <meta name="msapplication-TileColor" content="#ff6b9d" />
+    <meta name="msapplication-TileImage" content="%PUBLIC_URL%/logo192.png" />
+    <meta name="msapplication-config" content="none" />
+    
+    <!-- Bing & Yandex -->
+    <meta name="yandex-verification" content="" />
+    <meta name="msvalidate.01" content="" />
+    
+    <!-- Pinterest -->
+    <meta name="p:domain_verify" content="" />
+    
+    <!-- Facebook Domain Verification -->
+    <meta name="facebook-domain-verification" content="" />
+    
+    <!-- Additional Open Graph -->
+    <meta property="og:image:alt" content="SmartNails Stuttgart — Nageldesign und Maniküre in Stuttgart" />
+    <meta property="og:see_also" content="https://instagram.com/smartnails_stuttgart" />
+    <meta property="og:see_also" content="https://maps.app.goo.gl/sZyBieEk21ARVjF37" />
+    <meta property="business:contact_data:street_address" content="Im Kaisemer 26A" />
+    <meta property="business:contact_data:locality" content="Stuttgart" />
+    <meta property="business:contact_data:region" content="Baden-Württemberg" />
+    <meta property="business:contact_data:postal_code" content="70191" />
+    <meta property="business:contact_data:country_name" content="Germany" />
+    
+    <!-- Article Tags for Blog/Content -->
+    <meta property="article:author" content="SmartNails Stuttgart" />
+    <meta property="article:publisher" content="https://stuttgartnails.de" />
+    
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <title>Maniküre Stuttgart | Nagelstudio SmartNails</title>
+
+    <!-- Schema.org JSON-LD (static, visible without JavaScript) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BeautySalon",
+          "@id": "https://stuttgartnails.de/#beautysalon",
+          "name": "SmartNails Stuttgart",
+          "alternateName": ["Stuttgart Nails", "smartnails_stuttgart"],
+          "description": "Nagelstudio in Stuttgart-Nord: Maniküre, Smart-Pediküre, Gel-Lack, Nagelverlängerung und Nageldesign. Termine nach Vereinbarung per WhatsApp oder Instagram.",
+          "url": "https://stuttgartnails.de",
+          "telephone": "+49-170-1264472",
+          "logo": "https://stuttgartnails.de/logo512.png",
+          "image": [
+            "https://stuttgartnails.de/og-image.jpg",
+            "https://stuttgartnails.de/images/gallery/20251219_135103.jpg"
+          ],
+          "priceRange": "€€",
+          "openingHours": ["Mo-Sa by appointment"],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              "description": "Termine nach Vereinbarung per WhatsApp oder Instagram"
+            }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Im Kaisemer 26A",
+            "addressLocality": "Stuttgart",
+            "postalCode": "70191",
+            "addressRegion": "Baden-Württemberg",
+            "addressCountry": "DE"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 48.787838,
+            "longitude": 9.178071
+          },
+          "areaServed": { "@type": "City", "name": "Stuttgart" },
+          "hasMap": "https://maps.app.goo.gl/sZyBieEk21ARVjF37",
+          "sameAs": [
+            "https://instagram.com/smartnails_stuttgart",
+            "https://wa.me/491701264472",
+            "https://maps.app.goo.gl/sZyBieEk21ARVjF37"
+          ],
+          "knowsLanguage": ["German", "Russian"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://stuttgartnails.de/#website",
+          "name": "SmartNails Stuttgart",
+          "url": "https://stuttgartnails.de",
+          "description": "Professionelle Maniküre, Pediküre, Gel-Lack, Nagelverlängerung und Naildesign in Stuttgart.",
+          "inLanguage": ["de", "ru"],
+          "publisher": { "@id": "https://stuttgartnails.de/#beautysalon" }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://stuttgartnails.de/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Wie kann ich einen Termin buchen?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sie können einen Termin über Instagram @smartnails_stuttgart oder per WhatsApp buchen. Schreiben Sie uns einfach eine Nachricht mit Ihrem Wunschtermin."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Wie lange hält die Gel-Lack-Beschichtung?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Bei richtiger Pflege hält die Gel-Lack-Beschichtung 2-3 Wochen. Die Haltbarkeit hängt von Ihrem Lebensstil und der Nagelpflege ab."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Welche Materialien verwenden Sie?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Wir verwenden nur hochwertige und zertifizierte Materialien führender Marken, die sicher für Ihre Gesundheit sind."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Kann ich mein eigenes Design mitbringen?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Natürlich! Bringen Sie gerne Fotos oder Ideen mit, und wir besprechen gemeinsam, wie wir Ihr Wunschdesign umsetzen können."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <noscript>
+      <main>
+        <h1>Maniküre Stuttgart — Nagelstudio SmartNails</h1>
+        <p>Professionelles Nagelstudio in Im Kaisemer 26A, 70191 Stuttgart. Maniküre, Smart-Pediküre, Gel-Lack, Nagelverlängerung und Nageldesign. Termine nach Vereinbarung per WhatsApp (+49 170 1264472) oder Instagram @smartnails_stuttgart. Service auf Deutsch und Russisch.</p>
+        <h2>Dienstleistungen und Preise</h2>
+        <ul>
+          <li>Maniküre — ab 30 €</li>
+          <li>Nagelverlängerung — ab 55 €</li>
+          <li>Nageldesign — ab 1 € pro Nagel</li>
+          <li>Smart-Pediküre — ab 45 €</li>
+          <li>Pediküre „nur Zehen“ — ab 30 €</li>
+        </ul>
+        <p>Adresse: <a href="https://maps.app.goo.gl/sZyBieEk21ARVjF37">Im Kaisemer 26A, 70191 Stuttgart, Deutschland</a> (Google Maps)</p>
+        <h2>Häufig gestellte Fragen</h2>
+        <dl>
+          <dt>Wie kann ich einen Termin buchen?</dt>
+          <dd>Sie können einen Termin über Instagram @smartnails_stuttgart oder per WhatsApp buchen. Schreiben Sie uns einfach eine Nachricht mit Ihrem Wunschtermin.</dd>
+          <dt>Wie lange hält die Gel-Lack-Beschichtung?</dt>
+          <dd>Bei richtiger Pflege hält die Gel-Lack-Beschichtung 2-3 Wochen. Die Haltbarkeit hängt von Ihrem Lebensstil und der Nagelpflege ab.</dd>
+          <dt>Welche Materialien verwenden Sie?</dt>
+          <dd>Wir verwenden nur hochwertige und zertifizierte Materialien führender Marken, die sicher für Ihre Gesundheit sind.</dd>
+          <dt>Kann ich mein eigenes Design mitbringen?</dt>
+          <dd>Natürlich! Bringen Sie gerne Fotos oder Ideen mit, und wir besprechen gemeinsam, wie wir Ihr Wunschdesign umsetzen können.</dd>
+        </dl>
+      </main>
+    </noscript>
+    <div id="root">
+      <article aria-label="SmartNails Stuttgart">
+        <header><h1>Maniküre Stuttgart — Nagelstudio SmartNails</h1></header>
+        <section>
+          <h2>Maniküre &amp; Pediküre in Stuttgart</h2>
+          <p>Professionelle Nagelpflege in Im Kaisemer 26A, 70191 Stuttgart. Maniküre, Smart-Pediküre, Gel-Lack, Nagelverlängerung und Naildesign. Termin per WhatsApp oder Instagram.</p>
+        </section>
+        <section>
+          <h2>Dienstleistungen</h2>
+          <p>Maniküre ab 30 €, Nagelverlängerung ab 55 €, Smart-Pediküre ab 45 €, Nageldesign ab 1 € pro Nagel.</p>
+        </section>
+        <section>
+          <h2>Kontakt</h2>
+          <p>WhatsApp: +49 170 1264472 · Instagram: @smartnails_stuttgart · <a href="https://maps.app.goo.gl/sZyBieEk21ARVjF37">Im Kaisemer 26A, 70191 Stuttgart</a></p>
+        </section>
+        <section id="faq">
+          <h2>Häufig gestellte Fragen</h2>
+          <dl>
+            <dt>Wie kann ich einen Termin buchen?</dt>
+            <dd>Sie können einen Termin über Instagram @smartnails_stuttgart oder per WhatsApp buchen.</dd>
+            <dt>Wie lange hält die Gel-Lack-Beschichtung?</dt>
+            <dd>Bei richtiger Pflege hält die Gel-Lack-Beschichtung 2-3 Wochen.</dd>
+            <dt>Welche Materialien verwenden Sie?</dt>
+            <dd>Hochwertige und zertifizierte Materialien führender Marken.</dd>
+            <dt>Kann ich mein eigenes Design mitbringen?</dt>
+            <dd>Ja — bringen Sie Fotos oder Ideen mit.</dd>
+          </dl>
+        </section>
+      </article>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -19,14 +19,6 @@
       "destination": "/server.js"
     },
     {
-      "source": "/sitemap.xml",
-      "destination": "/server.js"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/server.js"
-    },
-    {
       "source": "/uploads/(.*)",
       "destination": "/server.js"
     },

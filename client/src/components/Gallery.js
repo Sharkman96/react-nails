@@ -6,7 +6,7 @@ import LazyImage from './ui/LazyImage';
 import { useCache } from '../hooks/useCache';
 import { optimizeGalleryImage, optimizeModalImage, preloadCriticalImages } from '../utils/imageOptimization';
 import { useCSRF } from '../utils/csrf';
-import { pickLang } from '../utils/lang';
+import { prerenderInitial } from '../utils/prerender';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -15,24 +15,23 @@ const Gallery = () => {
   const [preloadedImages, setPreloadedImages] = useState(new Set());
   const { addTokenToObject } = useCSRF();
 
-  // Используем кэширование для данных галереи
+  // Загружаем галерею из статического JSON-файла
   const { data: galleryItems, loading, error, refetch } = useCache(
     'gallery-items',
     async () => {
-      const response = await fetch('/api/gallery');
+      const response = await fetch('/data/gallery.json');
       if (!response.ok) {
         throw new Error('Failed to fetch gallery items');
       }
       const data = await response.json();
-      // Фильтруем только активные работы и сортируем по порядку
       return data
         .filter(item => item.isActive)
         .sort((a, b) => a.order - b.order);
     },
     {
-      ttl: 10 * 60 * 1000, // 10 минут
+      ttl: 60 * 60 * 1000, // 1 час (статический файл)
       refetchOnWindowFocus: false,
-      refetchOnReconnect: true
+      refetchOnReconnect: false
     }
   );
 
@@ -58,22 +57,25 @@ const Gallery = () => {
     setSelectedImage(null);
   };
 
-  const openInstagram = async () => {
-    try {
-      // Отправляем клик по кнопке Instagram с CSRF токеном
-      const dataWithToken = await addTokenToObject({ buttonType: 'instagram' });
-      await fetch('/api/analytics/click', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataWithToken)
-      });
-    } catch (error) {
-      console.error('Error tracking Instagram click:', error);
-    }
-    
+  const openInstagram = () => {
     window.open('https://instagram.com/smartnails_stuttgart', '_blank');
+    void (async () => {
+      try {
+        const dataWithToken = await addTokenToObject({ buttonType: 'instagram' });
+        await fetch('/api/analytics/click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dataWithToken),
+        });
+      } catch (error) {
+        console.error('Error tracking Instagram click:', error);
+      }
+    })();
+  };
+
+  const getImageAlt = (item) => {
+    const title = item.title?.[i18n.language] || item.title?.de || item.title?.ru;
+    return title ? `${title} - ${t('gallery.imageAlt')}` : t('gallery.imageAlt');
   };
 
   if (loading) {
@@ -116,19 +118,20 @@ const Gallery = () => {
     <section id="gallery" className="gallery">
       <div className="gallery-container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prerenderInitial({ opacity: 0, y: 30 })}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
           className="gallery-header"
         >
+          <span className="gallery-eyebrow">{t('gallery.title')}</span>
           <h2 className="gallery-title">{t('gallery.title')}</h2>
           <p className="gallery-description">{t('gallery.description')}</p>
         </motion.div>
 
         {(!galleryItems || galleryItems.length === 0) ? (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={prerenderInitial({ opacity: 0 })}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
@@ -138,7 +141,7 @@ const Gallery = () => {
           </motion.div>
         ) : (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={prerenderInitial({ opacity: 0 })}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
@@ -150,14 +153,22 @@ const Gallery = () => {
               
               return (
                 <motion.div
-                  key={item._id}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  key={item._id || item.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={t('gallery.openLightbox')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleImageClick(item);
+                    }
+                  }}
+                  initial={prerenderInitial({ opacity: 0, scale: 0.8 })}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   className="gallery-item"
                   onClick={() => handleImageClick(item)}
-                  whileHover={{ scale: 1.05 }}
                 >
                   <div 
                     className="gallery-item-placeholder"
@@ -168,7 +179,7 @@ const Gallery = () => {
                         src={optimizedImage.src}
                         srcSet={optimizedImage.srcSet}
                         sizes={optimizedImage.sizes}
-                        alt={pickLang(item.title, i18n.language)} 
+                        alt={getImageAlt(item)}
                         className="gallery-image"
                         loading={isPreloaded ? 'eager' : 'lazy'}
                         threshold={200}
@@ -182,9 +193,6 @@ const Gallery = () => {
                       </div>
                     )}
                   </div>
-                  <div className="gallery-item-overlay">
-                    <h3>{pickLang(item.title, i18n.language)}</h3>
-                  </div>
                 </motion.div>
               );
             })}
@@ -192,7 +200,7 @@ const Gallery = () => {
         )}
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prerenderInitial({ opacity: 0, y: 30 })}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
           viewport={{ once: true }}
@@ -229,19 +237,18 @@ const Gallery = () => {
               <button className="modal-close" onClick={closeModal}>
                 <X size={24} />
               </button>
-              <div 
-                className="modal-image"
-                style={{ backgroundColor: selectedImage.color }}
-              >
+              <div className="modal-image">
                 {selectedImage.imageUrl ? (
-                  <LazyImage 
+                  <LazyImage
                     src={optimizeModalImage(selectedImage.imageUrl).src}
                     srcSet={optimizeModalImage(selectedImage.imageUrl).srcSet}
                     sizes={optimizeModalImage(selectedImage.imageUrl).sizes}
-                    alt={pickLang(selectedImage.title, i18n.language)} 
+                    alt={getImageAlt(selectedImage)}
                     className="modal-image-content"
                     loading="eager"
                     effect="blur"
+                    width="auto"
+                    height="auto"
                     placeholderSrc={selectedImage.color ? `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" style="background-color:${selectedImage.color}"></svg>` : null}
                   />
                 ) : (
@@ -250,10 +257,6 @@ const Gallery = () => {
                     <div className="nail-tip-large"></div>
                   </div>
                 )}
-              </div>
-              <div className="modal-info">
-                <h3>{pickLang(selectedImage.title, i18n.language)}</h3>
-                <p>{pickLang(selectedImage.description, i18n.language)}</p>
               </div>
             </motion.div>
           </motion.div>

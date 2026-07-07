@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Award, Clock } from 'lucide-react';
+import { prerenderInitial } from '../utils/prerender';
 import './About.css';
 
 const About = () => {
@@ -29,19 +30,20 @@ const About = () => {
     <section id="about" className="about">
       <div className="about-container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prerenderInitial({ opacity: 0, y: 30 })}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
           className="about-header"
         >
+          <span className="about-eyebrow">{t('about.title')}</span>
           <h2 className="about-title">{t('about.title')}</h2>
           <div className="about-underline"></div>
         </motion.div>
 
         <div className="about-content">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={prerenderInitial({ opacity: 0, x: -50 })}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
@@ -53,7 +55,7 @@ const About = () => {
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={prerenderInitial({ opacity: 0, y: 30 })}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                   viewport={{ once: true }}
@@ -72,7 +74,7 @@ const About = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={prerenderInitial({ opacity: 0, x: 50 })}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}

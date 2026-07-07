@@ -25,8 +25,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "build:prod": "GENERATE_SOURCEMAP=false REACT_APP_ENV=production react-scripts build",
+    "build": "set GENERATE_SOURCEMAP=false && react-scripts build",
+    "prebuild": "python ../scripts/generate-og-image.py",
+    "build:prod": "set GENERATE_SOURCEMAP=false && set REACT_APP_ENV=production && react-scripts build",
+    "build:unix": "GENERATE_SOURCEMAP=false react-scripts build",
+    "postbuild": "react-snap && node scripts/patch-ru-html.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +49,28 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-snap": "^1.23.0"
+  },
+  "reactSnap": {
+    "source": "build",
+    "include": [
+      "/",
+      "/ru",
+      "/impressum",
+      "/datenschutz",
+      "/ru/impressum",
+      "/ru/datenschutz"
+    ],
+    "minifyHtml": {
+      "collapseWhitespace": false
+    },
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
     ]
   }
 }

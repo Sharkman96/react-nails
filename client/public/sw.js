@@ -1,81 +1,137 @@
-const CACHE_NAME = 'nail-master-v1';
-const urlsToCache = [
-  '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
+const CACHE_NAME = 'nail-master-v3';
+const OFFLINE_URL = '/offline.html';
+
+// Не кешируем index.html при install — для HTML используем network-first
+const PRECACHE_URLS = [
+  OFFLINE_URL,
   '/manifest.json',
   '/favicon.ico',
+  '/favicon.svg',
   '/logo192.png',
-  '/logo512.png'
+  '/logo512.png',
 ];
 
-// Установка Service Worker
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
   );
 });
 
-// Активация Service Worker
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames.map((name) =>
+            name !== CACHE_NAME ? caches.delete(name) : Promise.resolve()
+          )
+        )
+      )
+      .then(() => self.clients.claim())
+  );
+});
+
+const isNavigationRequest = (request) =>
+  request.mode === 'navigate' ||
+  (request.method === 'GET' &&
+    request.headers.get('accept')?.includes('text/html'));
+
+const isDataRequest = (url) => url.pathname.startsWith('/data/');
+
+const isStaticAsset = (url) =>
+  /\.(js|css|png|jpg|jpeg|gif|ico|svg|webp|woff2?)$/i.test(url.pathname);
+
+/** HTML / навигация: сначала сеть, кеш только как fallback */
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
+
+  try {
+    const response = await fetch(request);
+    if (response && response.status === 200) {
+      await cache.put(request, response.clone());
+    }
+    return response;
+  } catch (error) {
+    const cached = await cache.match(request);
+    if (cached) return cached;
+
+    if (isNavigationRequest(request)) {
+      const offline = await cache.match(OFFLINE_URL);
+      if (offline) return offline;
+    }
+
+    throw error;
+  }
+}
+
+/** JS/CSS/картинки: кеш-first (имена с hash меняются при каждом build) */
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+
+  const response = await fetch(request);
+  if (response && response.status === 200 && response.type === 'basic') {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put(request, response.clone());
+  }
+  return response;
+}
+
+/** JSON прайса/галереи: отдать кеш сразу, параллельно обновить */
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request);
+
+  const networkUpdate = fetch(request)
+    .then((response) => {
+      if (response && response.status === 200) {
+        cache.put(request, response.clone());
+      }
+      return response;
     })
-  );
-});
+    .catch(() => null);
 
-// Перехват запросов
+  if (cached) {
+    networkUpdate.catch(() => {});
+    return cached;
+  }
+
+  const response = await networkUpdate;
+  if (response) return response;
+  throw new Error('Network error and no cache');
+}
+
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Возвращаем кэшированный ответ, если он есть
-        if (response) {
-          return response;
-        }
+  const { request } = event;
+  const url = new URL(request.url);
 
-        // Иначе делаем сетевой запрос
-        return fetch(event.request).then(
-          (response) => {
-            // Проверяем, что ответ валидный
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
+  if (url.origin !== self.location.origin) return;
+  if (request.method !== 'GET') return;
 
-            // Клонируем ответ
-            const responseToCache = response.clone();
+  if (
+    isNavigationRequest(request) ||
+    url.pathname === '/' ||
+    url.pathname.endsWith('.html')
+  ) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
 
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
+  if (isDataRequest(url)) {
+    event.respondWith(staleWhileRevalidate(request));
+    return;
+  }
 
-            return response;
-          }
-        );
-      })
-      .catch(() => {
-        // Офлайн страница для навигационных запросов
-        if (event.request.mode === 'navigate') {
-          return caches.match('/offline.html');
-        }
-      })
-  );
+  if (isStaticAsset(url)) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  event.respondWith(networkFirst(request));
 });
 
-// Обработка push-уведомлений
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'Новое уведомление',
@@ -84,44 +140,37 @@ self.addEventListener('push', (event) => {
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 1,
     },
     actions: [
       {
         action: 'explore',
         title: 'Посмотреть',
-        icon: '/logo192.png'
+        icon: '/logo192.png',
       },
       {
         action: 'close',
         title: 'Закрыть',
-        icon: '/logo192.png'
-      }
-    ]
+        icon: '/logo192.png',
+      },
+    ],
   };
 
   event.waitUntil(
-    self.registration.showNotification('Nail Master', options)
+    self.registration.showNotification('SmartNails Stuttgart', options)
   );
 });
 
-// Обработка кликов по уведомлениям
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
   if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
+    event.waitUntil(clients.openWindow('/'));
   }
 });
 
-// Синхронизация в фоне
 self.addEventListener('sync', (event) => {
   if (event.tag === 'background-sync') {
-    event.waitUntil(
-      // Здесь можно добавить логику синхронизации данных
-      console.log('Background sync triggered')
-    );
+    event.waitUntil(Promise.resolve());
   }
-}); 
+});
