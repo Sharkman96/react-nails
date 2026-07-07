@@ -1,0 +1,151 @@
+.gelnails {
+  padding: var(--section-pad) 0;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.gelnails::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent-primary) 35%,
+    var(--accent-gold) 65%,
+    transparent 100%
+  );
+  opacity: 0.35;
+}
+
+.gelnails-container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.gelnails-header {
+  max-width: 760px;
+  margin-bottom: 3rem;
+}
+
+.gelnails-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.8rem;
+}
+
+.gelnails-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent-gold);
+}
+
+.gelnails-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+}
+
+.gelnails-underline {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
+  margin-bottom: 1.25rem;
+}
+
+.gelnails-description {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.gelnails-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.gelnails-card {
+  background: var(--bg-secondary);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, transparent);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gelnails-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  color: var(--accent-primary);
+}
+
+.gelnails-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.gelnails-card p {
+  margin: 0;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.gelnails-price {
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.gelnails-cta-wrap {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.gelnails-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-gold));
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gelnails-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent-primary) 25%, transparent);
+}
+
+@media (max-width: 900px) {
+  .gelnails-grid {
+    grid-template-columns: 1fr;
+  }
+}

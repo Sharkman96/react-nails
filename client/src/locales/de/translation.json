@@ -6,14 +6,14 @@
     "imageAlt": "Maniküre und Naildesign im Nagelstudio SmartNails Stuttgart"
   },
   "meta": {
-    "title": "Maniküre Stuttgart | Nagelstudio SmartNails",
-    "description": "SmartNails Stuttgart: Nagelstudio für Maniküre, Pediküre, Gel-Lack, Nagelverlängerung und Naildesign in 70191 Stuttgart, Im Kaisemer 26A. Termin per WhatsApp oder Instagram.",
-    "keywords": "Maniküre Stuttgart, Nagelstudio Stuttgart, Nails Stuttgart, Pediküre Stuttgart, Gel Nägel Stuttgart, Nageldesign Stuttgart, Naildesign Stuttgart, Nagelverlängerung Stuttgart, Smart Pediküre, SmartNails"
+    "title": "Maniküre & Gelnägel Stuttgart | SmartNails Nagelstudio",
+    "description": "Gelnägel, Gel-Lack und Nagelverlängerung in Stuttgart (70191). Nagelstudio SmartNails — Termin per WhatsApp oder Instagram.",
+    "keywords": "Maniküre Stuttgart, Nagelstudio Stuttgart, Gelnägel Stuttgart, Gel Nägel Stuttgart, Gel-Lack Stuttgart, Nagelverlängerung Stuttgart, Nageldesign Stuttgart, SmartNails"
   },
   "services": {
     "title": "Dienstleistungen und Preise",
     "description": "Professionelle Maniküre- und Pediküre-Dienstleistungen mit hochwertigen Materialien",
-    "keywords": "maniküre, pediküre, gel-lack, nagelverlängerung, nageldesign, Stuttgart",
+    "keywords": "maniküre, pediküre, gel-lack, nagelverlängerung, nageldesign, gelnägel, Stuttgart",
     "categories": {
       "all": "Alle Dienstleistungen",
       "manicure": "Maniküre",
@@ -48,6 +48,29 @@
     },
     "priceNote": "* Preise sind Richtwerte. Der genaue Preis hängt von der Komplexität der Arbeit und den verwendeten Materialien ab.",
     "noServices": "Dienstleistungen sind vorübergehend nicht verfügbar. Bitte kontaktieren Sie uns für weitere Informationen."
+  },
+  "gelnails": {
+    "eyebrow": "Gelnägel Stuttgart",
+    "title": "Gelnägel & Gel-Lack in Stuttgart",
+    "description": "Bei SmartNails Stuttgart erhalten Sie professionelle Gelnägel in Stuttgart-Nord (70191): Gel-Lack auf den Naturnagel, Aufbau-Gel zur Verstärkung und Nagelverlängerung mit Gel. Termin nach Vereinbarung per WhatsApp oder Instagram.",
+    "items": {
+      "gelPolish": {
+        "title": "Gel-Lack",
+        "description": "Farbige Beschichtung auf dem Naturnagel — haltbar und gepflegt.",
+        "price": "ab 45 €"
+      },
+      "buildUp": {
+        "title": "Aufbau-Gel / Gelnägel",
+        "description": "Verstärkung und Form für stabilere, längere Nägel.",
+        "price": "ab 50 €"
+      },
+      "extensions": {
+        "title": "Nagelverlängerung",
+        "description": "Gelnägel mit Verlängerung in verschiedenen Längen.",
+        "price": "ab 55 €"
+      }
+    },
+    "cta": "Preise & Leistungen ansehen"
   },
   "promo": {
     "eyebrow": "Geheimer Website-Bonus",
@@ -113,6 +136,8 @@
     "a3": "Wir verwenden nur hochwertige und zertifizierte Materialien führender Marken, die sicher für Ihre Gesundheit sind.",
     "q4": "Kann ich mein eigenes Design mitbringen?",
     "a4": "Natürlich! Bringen Sie gerne Fotos oder Ideen mit, und wir besprechen gemeinsam, wie wir Ihr Wunschdesign umsetzen können.",
+    "q5": "Was ist der Unterschied zwischen Gelnägeln und Gel-Lack?",
+    "a5": "Gel-Lack verstärkt den Naturnagel mit farbigem Finish. Gelnägel (Aufbau-Gel oder Nagelverlängerung) geben mehr Länge und Stabilität — ideal, wenn Sie längere Nägel in Stuttgart wünschen.",
     "contactText": "Haben Sie weitere Fragen? Kontaktieren Sie uns!"
   },
   "footer": {

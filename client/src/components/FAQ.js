@@ -12,7 +12,7 @@ import './FAQ.css';
 
 
 
-const FAQ_ITEM_KEYS = ['q1', 'q2', 'q3', 'q4'];
+const FAQ_ITEM_KEYS = ['q1', 'q2', 'q3', 'q4', 'q5'];
 
 
 
