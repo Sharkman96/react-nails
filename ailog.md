@@ -123,3 +123,48 @@
 GOOGLE_PLACES_API_KEY=...
 GOOGLE_PLACE_ID=ChIJE_wiOw3bmUcRrggBAHoNZLQ
 ```
+
+## 2026-07-19 — Reviews block missing on prod
+
+### Диагностика
+`https://stuttgartnails.de/api/reviews` → empty payload (`rating:null`, `reviews:[]`).
+UI скрывает секцию при пустом ответе — ожидаемое поведение.
+
+### Вероятная причина
+На VPS нет/не подхватились `GOOGLE_PLACES_API_KEY` / `GOOGLE_PLACE_ID`, либо Places API (New) не включён / ошибка ключа.
+
+### Правки
+- `reason` в пустом ответе (`missing_credentials` | `places_error`)
+- dotenv path через `__dirname`
+- deploy zip включает `lib/`
+
+## 2026-07-19 — Places API 403
+
+### Диагностика
+Прямой запрос Place Details → **403** `API_KEY_HTTP_REFERRER_BLOCKED` («Requests from referer <empty> are blocked»).
+
+### Корневая причина
+Ключ ограничен **HTTP referrers** (для браузера). Серверный Node-запрос без Referer блокируется.
+
+### Решение для пользователя
+В Google Cloud Console → Credentials → этот API key:
+- Application restrictions: **IP addresses** (IP VPS), не HTTP referrers
+- или отдельный server key без referrer-ограничений
+- API restrictions: Places API (New)
+- После смены — `pm2 restart`
+- Ключ засвечен в чате — желательно ротировать
+
+## 2026-07-19 — Reviews layout + section padding
+
+### Действие
+- Блок отзывов: двухколоночный layout (заголовок слева ~30%, 3 отзыва справа + карусель)
+- `--section-pad`: 7rem (112px) → 66px
+- Коммит `ed6594e`, push master
+
+## 2026-07-19 — Reviews backend diagnostics
+
+### Действие
+- `server.js`: dotenv через `__dirname`
+- `reviewsController`: reason в пустом ответе, fallback только на непустой кэш
+- `DEPLOY_VPS.md`: lib/ в zip
+- Пользователь: Places API key с IP restriction 84.247.134.224

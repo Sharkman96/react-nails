@@ -30,13 +30,17 @@ async function refreshFromPlaces() {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   const placeId = process.env.GOOGLE_PLACE_ID;
   if (!apiKey || !placeId) {
-    console.warn('Reviews: missing GOOGLE_PLACES_API_KEY or GOOGLE_PLACE_ID');
-    return null;
+    const missing = [
+      !apiKey ? 'GOOGLE_PLACES_API_KEY' : null,
+      !placeId ? 'GOOGLE_PLACE_ID' : null,
+    ].filter(Boolean);
+    console.warn(`Reviews: missing ${missing.join(', ')}`);
+    return { ok: false, reason: 'missing_credentials', missing };
   }
   const place = await fetchPlacesDetails(apiKey, placeId);
   const payload = mapPlacesToCache(place, new Date().toISOString());
   await writeReviewsFile(DATA_FILE, payload);
-  return payload;
+  return { ok: true, payload };
 }
 
 const getReviews = async (req, res) => {
@@ -47,19 +51,22 @@ const getReviews = async (req, res) => {
     }
 
     try {
-      const fresh = await refreshFromPlaces();
-      if (fresh) return res.json(fresh);
-    } catch (err) {
-      console.error('Reviews refresh failed:', err.message);
-      if (cached && Array.isArray(cached.reviews)) {
+      const result = await refreshFromPlaces();
+      if (result.ok) return res.json(result.payload);
+      if (cached && Array.isArray(cached.reviews) && cached.reviews.length) {
         return res.json(cached);
       }
+      return res.json(emptyReviewsPayload(result.reason));
+    } catch (err) {
+      console.error('Reviews refresh failed:', err.message);
+      if (cached && Array.isArray(cached.reviews) && cached.reviews.length) {
+        return res.json(cached);
+      }
+      return res.json(emptyReviewsPayload('places_error'));
     }
-
-    return res.json(emptyReviewsPayload());
   } catch (error) {
     console.error('Get reviews error:', error);
-    return res.json(emptyReviewsPayload());
+    return res.json(emptyReviewsPayload('server_error'));
   }
 };
 

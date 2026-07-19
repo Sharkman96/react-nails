@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const fs = require('fs');
-require('dotenv').config({ path: './config.env' });
+require('dotenv').config({ path: path.join(__dirname, 'config.env') });
 
 // Импорт middleware
 const { 

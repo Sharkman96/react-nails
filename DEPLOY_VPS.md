@@ -14,7 +14,7 @@ cd ..
 **На Windows (PowerShell):**
 ```powershell
 # Создаём архив без node_modules
-Compress-Archive -Path "config.env", "server.js", "package.json", "package-lock.json", "client/build", "controllers", "middleware", "routes", "data", "public" -DestinationPath "react-nails.zip" -Force
+Compress-Archive -Path "config.env", "server.js", "package.json", "package-lock.json", "client/build", "controllers", "middleware", "routes", "lib", "data", "public" -DestinationPath "react-nails.zip" -Force
 ```
 
 **Или вручную:**
@@ -28,6 +28,7 @@ Compress-Archive -Path "config.env", "server.js", "package.json", "package-lock.
    - `controllers/`
    - `middleware/`
    - `routes/`
+   - `lib/`
    - `data/`
    - `public/`
 3. Заархивируйте папку
