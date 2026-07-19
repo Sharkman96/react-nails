@@ -127,6 +127,7 @@ const galleryRoutes = require('./routes/gallery');
 const analyticsRoutes = require('./routes/analytics');
 const csrfRoutes = require('./routes/csrf');
 const sitemapRoutes = require('./routes/sitemap');
+const { resolveSpaRequest } = require('./lib/spaRoutes');
 
 // Rate limiting для аутентификации (более строгий)
 app.use('/api/auth', authRateLimitMiddleware);
@@ -250,29 +251,59 @@ app.get('/sw.js', (req, res) => {
   });
 });
 
-// Serve static files from the React app с кэшированием
-app.use(express.static(path.join(__dirname, 'client/build'), {
-  maxAge: '1d', // Кэшируем статические файлы на 1 день
-  etag: true,
-  lastModified: true
-}));
+const buildDir = path.join(__dirname, 'client/build');
+const notFoundHtml = path.join(buildDir, '404.html');
+const notFoundFallback = path.join(__dirname, 'client/public/404.html');
 
 const sendLocaleIndex = (locale, res) => {
-  const localeIndex = path.join(__dirname, 'client/build', locale, 'index.html');
-  const fallbackIndex = path.join(__dirname, 'client/build/index.html');
+  const localeIndex = path.join(buildDir, locale, 'index.html');
+  const fallbackIndex = path.join(buildDir, 'index.html');
   res.sendFile(fs.existsSync(localeIndex) ? localeIndex : fallbackIndex);
 };
 
-// SEO-friendly locale routes
-app.get('/ru', (req, res) => sendLocaleIndex('ru', res));
-app.get('/de', (req, res) => res.redirect(301, '/'));
+/** Serve react-snap HTML for allowlisted paths (e.g. /ru/datenschutz → build/ru/datenschutz/index.html) */
+const sendSpaHtml = (spaPath, locale, res) => {
+  const relative =
+    spaPath === '/'
+      ? 'index.html'
+      : path.join(spaPath.replace(/^\//, ''), 'index.html');
+  const candidate = path.join(buildDir, relative);
+  if (fs.existsSync(candidate)) {
+    return res.sendFile(candidate);
+  }
+  return sendLocaleIndex(locale, res);
+};
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-// Это позволит React Router обрабатывать все маршруты, включая /admin
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+const sendNotFoundPage = (res) => {
+  const file = fs.existsSync(notFoundHtml) ? notFoundHtml : notFoundFallback;
+  return res.status(404).type('html').sendFile(file);
+};
+
+// HTML routes BEFORE express.static — otherwise static redirects /ru → /ru/ (directory)
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  if (path.extname(req.path)) return next();
+
+  const decision = resolveSpaRequest(req.path);
+
+  if (decision.type === 'redirect') {
+    return res.redirect(decision.status, decision.location);
+  }
+
+  if (decision.type === 'spa') {
+    return sendSpaHtml(decision.path, decision.locale, res);
+  }
+
+  return sendNotFoundPage(res);
 });
+
+// Static assets only (redirect:false avoids /dir → /dir/ for leftover folders)
+app.use(express.static(buildDir, {
+  maxAge: '1d',
+  etag: true,
+  lastModified: true,
+  redirect: false,
+}));
 
 // Middleware для обработки ошибок
 app.use(errorLogger);
