@@ -124,6 +124,7 @@ app.use(staticCacheMiddleware);
 const authRoutes = require('./routes/auth');
 const serviceRoutes = require('./routes/services');
 const galleryRoutes = require('./routes/gallery');
+const reviewsRoutes = require('./routes/reviews');
 const analyticsRoutes = require('./routes/analytics');
 const csrfRoutes = require('./routes/csrf');
 const sitemapRoutes = require('./routes/sitemap');
@@ -148,6 +149,11 @@ app.use('/api/services',
 app.use('/api/gallery', 
   cacheMiddleware(5 * 60 * 1000), // 5 минут
   galleryRoutes
+);
+
+app.use('/api/reviews',
+  cacheMiddleware(10 * 60 * 1000), // 10 минут (файл-кэш TTL 7 дней)
+  reviewsRoutes
 );
 
 app.use('/api/analytics', analyticsRoutes);

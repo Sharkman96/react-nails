@@ -105,3 +105,21 @@
 ### Результат
 - Spec: `docs/superpowers/specs/2026-07-19-google-places-reviews-design.md`
 - Реализация ждёт review spec → writing-plans
+
+## 2026-07-19 — Google Reviews implementation
+
+### Действие
+План + inline реализация. Place ID: `ChIJE_wiOw3bmUcRrggBAHoNZLQ`.
+
+### Результат
+- Plan: `docs/superpowers/plans/2026-07-19-google-places-reviews.md`
+- `lib/reviewsCache.js` + тесты (8 PASS)
+- `GET /api/reviews` → Places API + `data/reviews.json` TTL 7d
+- UI: `Reviews` после Gallery; i18n DE/RU
+- `DEPLOY_VPS.md`: env vars
+
+### Нужно на VPS / локально в config.env
+```
+GOOGLE_PLACES_API_KEY=...
+GOOGLE_PLACE_ID=ChIJE_wiOw3bmUcRrggBAHoNZLQ
+```

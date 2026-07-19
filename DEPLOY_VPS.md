@@ -98,7 +98,14 @@ cat config.env
 # Должно быть:
 # PORT=5010
 # NODE_ENV=production
+# GOOGLE_PLACES_API_KEY=...          # Places API (New), только сервер
+# GOOGLE_PLACE_ID=ChIJE_wiOw3bmUcRrggBAHoNZLQ
 ```
+
+Google Reviews (`GET /api/reviews`):
+- В Google Cloud включите **Places API (New)** и ограничьте ключ этим API.
+- Кэш пишется в `data/reviews.json` (TTL 7 дней), файл не коммитится.
+- OAuth `client_secret` для отзывов не нужен.
 
 ---
 

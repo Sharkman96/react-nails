@@ -89,6 +89,13 @@
     "imageAlt": "Nageldesign und Maniküre – Referenzfoto aus dem Nagelstudio SmartNails Stuttgart",
     "openLightbox": "Foto vergrößern"
   },
+  "reviews": {
+    "eyebrow": "Bewertungen",
+    "title": "Was Kundinnen sagen",
+    "subtitle": "Echte Google-Bewertungen für SmartNails Stuttgart",
+    "cta": "Alle Bewertungen bei Google",
+    "basedOn": "basierend auf {{count}} Bewertungen"
+  },
   "contact": {
     "title": "Kontaktieren Sie mich",
     "whatsapp": "WhatsApp schreiben",

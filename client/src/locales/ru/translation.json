@@ -89,6 +89,13 @@
     "imageAlt": "Работы мастера по маникюру и nail-дизайну в студии SmartNails Stuttgart",
     "openLightbox": "Открыть фото"
   },
+  "reviews": {
+    "eyebrow": "Отзывы",
+    "title": "Что говорят клиенты",
+    "subtitle": "Реальные отзывы Google о SmartNails Stuttgart",
+    "cta": "Все отзывы в Google",
+    "basedOn": "на основе {{count}} отзывов"
+  },
   "contact": {
     "title": "Связаться со мной",
     "whatsapp": "Написать в WhatsApp",
