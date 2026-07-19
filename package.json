@@ -13,7 +13,8 @@
     "heroku-postbuild": "echo 'Build already completed'",
     "vercel-build": "echo 'Build already completed'", 
     "railway-build": "echo 'Build already completed'",
-    "init-admin": "node scripts/initAdmin.js"
+    "init-admin": "node scripts/initAdmin.js",
+    "test:spa-routes": "node --test lib/spaRoutes.test.js"
   },
   "engines": {
     "node": ">=18.0.0",
