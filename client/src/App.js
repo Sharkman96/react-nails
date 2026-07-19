@@ -18,6 +18,7 @@ import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import LegalPage from './components/LegalPage';
 import SEO from './components/SEO';
+import NotFound from './components/NotFound';
 import {
   createBreadcrumbSchema,
 } from './utils/schema';
@@ -129,7 +130,7 @@ function App() {
           <Route path="/datenschutz" element={<LocalizedLegalPage page="datenschutz" />} />
           <Route path="/ru/impressum" element={<LocalizedLegalPage page="impressum" />} />
           <Route path="/ru/datenschutz" element={<LocalizedLegalPage page="datenschutz" />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </HelmetProvider>
     </ThemeProvider>
