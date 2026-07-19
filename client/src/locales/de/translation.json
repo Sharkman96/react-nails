@@ -94,7 +94,9 @@
     "title": "Was Kundinnen sagen",
     "subtitle": "Echte Google-Bewertungen für SmartNails Stuttgart",
     "cta": "Alle Bewertungen bei Google",
-    "basedOn": "basierend auf {{count}} Bewertungen"
+    "basedOn": "basierend auf {{count}} Bewertungen",
+    "prev": "Vorherige Bewertungen",
+    "next": "Nächste Bewertungen"
   },
   "contact": {
     "title": "Kontaktieren Sie mich",

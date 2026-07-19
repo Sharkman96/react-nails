@@ -94,7 +94,9 @@
     "title": "Что говорят клиенты",
     "subtitle": "Реальные отзывы Google о SmartNails Stuttgart",
     "cta": "Все отзывы в Google",
-    "basedOn": "на основе {{count}} отзывов"
+    "basedOn": "на основе {{count}} отзывов",
+    "prev": "Предыдущие отзывы",
+    "next": "Следующие отзывы"
   },
   "contact": {
     "title": "Связаться со мной",
