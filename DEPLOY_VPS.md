@@ -140,14 +140,44 @@ sudo apt install nginx -y
 sudo nano /etc/nginx/sites-available/stuttgartnails
 ```
 
-**Вставьте конфигурацию:**
+**Канонический хост:** только `https://stuttgartnails.de` (без www).  
+**Не включайте** глобальный redirect «добавить trailing slash» для HTML — `/ru` должен отдавать **200**, а `/ru/` редиректит Node на `/ru`.
+
+**Вставьте конфигурацию** (пути SSL — после Certbot; при первой установке сначала получите сертификат, затем примените блоки):
+
 ```nginx
+# 1) HTTP → HTTPS apex (оба hostname)
 server {
     listen 80;
+    listen [::]:80;
     server_name stuttgartnails.de www.stuttgartnails.de;
+    return 301 https://stuttgartnails.de$request_uri;
+}
 
-    # Редирект на HTTPS (после настройки SSL)
-    # return 301 https://$server_name$request_uri;
+# 2) HTTPS www → apex
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.stuttgartnails.de;
+
+    ssl_certificate /etc/letsencrypt/live/stuttgartnails.de/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/stuttgartnails.de/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    return 301 https://stuttgartnails.de$request_uri;
+}
+
+# 3) HTTPS apex → Node
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name stuttgartnails.de;
+
+    ssl_certificate /etc/letsencrypt/live/stuttgartnails.de/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/stuttgartnails.de/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     location / {
         proxy_pass http://127.0.0.1:3847;
@@ -162,14 +192,12 @@ server {
         proxy_read_timeout 90;
     }
 
-    # Кэширование статики
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
         proxy_pass http://127.0.0.1:3847;
         proxy_cache_valid 200 30d;
         add_header Cache-Control "public, immutable, max-age=2592000";
     }
 
-    # Gzip сжатие
     gzip on;
     gzip_vary on;
     gzip_min_length 1024;
@@ -187,9 +215,29 @@ sudo ln -s /etc/nginx/sites-available/stuttgartnails /etc/nginx/sites-enabled/
 # Проверка конфигурации
 sudo nginx -t
 
-# Перезапуск Nginx
-sudo systemctl restart nginx
+# Перезагрузка Nginx
+sudo systemctl reload nginx
 ```
+
+### Шаг 13b: Проверка каноникала и soft-404 (после деплоя кода)
+```bash
+curl -sI https://www.stuttgartnails.de/ | head -n 5
+# ожидается: 301 → https://stuttgartnails.de/
+
+curl -sI https://stuttgartnails.de/ru | head -n 5
+# ожидается: 200 (не 301 на /ru/)
+
+curl -sI https://stuttgartnails.de/am/spam-test | head -n 5
+# ожидается: 404
+
+curl -sI http://stuttgartnails.de/ | head -n 5
+# ожидается: 301 → https://stuttgartnails.de/
+```
+
+### Шаг 13c: Google Search Console после деплоя
+1. Removals → Temporary removal для спам-URL (`/am/...`).
+2. URL Inspection → Request indexing для `https://stuttgartnails.de/` и `https://stuttgartnails.de/ru`.
+3. Дождаться переобхода Coverage.
 
 ---
 
@@ -209,6 +257,8 @@ sudo certbot --nginx -d stuttgartnails.de -d www.stuttgartnails.de
 1. Введите email
 2. Согласитесь с условиями (A)
 3. Выберите редирект на HTTPS (2)
+
+После Certbot **замените** автосгенерированные server-блоки на каноническую схему из Шага 12 (www → apex), затем `sudo nginx -t && sudo systemctl reload nginx`.
 
 ### Шаг 16: Автообновление сертификата
 ```bash
