@@ -23,12 +23,14 @@ import {
   createBreadcrumbSchema,
 } from './utils/schema';
 import { getCanonicalUrl, getLangFromPath } from './utils/localeRoutes';
+import { isReactSnapPrerender } from './utils/prerender';
 
 const MainSite = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const routeLang = getLangFromPath(location.pathname);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const snap = isReactSnapPrerender();
+  const [isLoaded, setIsLoaded] = useState(snap);
 
   useEffect(() => {
     if (i18n.language !== routeLang) {
@@ -44,7 +46,7 @@ const MainSite = () => {
 
   const canonicalUrl = getCanonicalUrl(routeLang);
 
-  if (!isLoaded) {
+  if (!isLoaded && !snap) {
     return <div className="loading-screen">Loading...</div>;
   }
 
@@ -80,18 +82,20 @@ const MainSite = () => {
 
 const Layout = ({ children }) => {
   const { i18n } = useTranslation();
-  const [isLoading, setIsLoading] = useState(true);
+  const snap = isReactSnapPrerender();
+  const [isLoading, setIsLoading] = useState(!snap);
 
   useEffect(() => {
+    if (snap) return undefined;
     if (i18n.isInitialized) {
       const timer = setTimeout(() => {
         setIsLoading(false);
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [i18n.isInitialized]);
+  }, [i18n.isInitialized, snap]);
 
-  if (isLoading) {
+  if (isLoading && !snap) {
     return <div className="loading-screen">Loading...</div>;
   }
 

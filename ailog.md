@@ -52,3 +52,25 @@
 - Задеплоить код + обновить nginx по `DEPLOY_VPS.md`
 - Live curl на production (сейчас на проде ещё soft-404)
 - GSC Removals для spam URL + Request indexing `/` и `/ru`
+
+## 2026-07-19 — Fix react-snap build noise
+
+### Причины
+- `public/404.html` + react-snap `crawl:true` → автокраул `/404.html`
+- `hydrateRoot` + перезаписанный index → React #418/#423
+- `i18next-http-backend` при bundled resources → ERR_FAILED
+
+### Исправления
+- `notfound.html` вместо `404.html` для Express
+- `reactSnap.crawl: false`
+- `createRoot` вместо hydrate
+- убран http Backend; loading-gate/theme для snap
+
+### Локальная проверка
+- crawl 6/6, без #418/#423; остались ERR_FAILED (fonts + skipThirdPartyRequests) и lazy img warning
+
+## 2026-07-19 — nginx port 5010
+
+### Действие
+В `DEPLOY_VPS.md` все `3847` → `5010` (`proxy_pass` и health-check).
+Отдельно: вопрос про Google-отзывы — варианты предложены, реализация ждёт выбора.

@@ -96,7 +96,7 @@ npm install --production
 ```bash
 cat config.env
 # Должно быть:
-# PORT=3847
+# PORT=5010
 # NODE_ENV=production
 ```
 
@@ -180,7 +180,7 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     location / {
-        proxy_pass http://127.0.0.1:3847;
+        proxy_pass http://127.0.0.1:5010;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -193,7 +193,7 @@ server {
     }
 
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
-        proxy_pass http://127.0.0.1:3847;
+        proxy_pass http://127.0.0.1:5010;
         proxy_cache_valid 200 30d;
         add_header Cache-Control "public, immutable, max-age=2592000";
     }
@@ -294,7 +294,7 @@ DNS обновление может занять до 24-48 часов.
 ### Шаг 18: Тестирование
 ```bash
 # Проверка локально на сервере
-curl http://localhost:3847/api/health
+curl http://localhost:5010/api/health
 
 # Проверка через домен (после настройки DNS)
 curl https://stuttgartnails.de/api/health
@@ -339,7 +339,7 @@ pm2 restart stuttgartnails
 pm2 logs stuttgartnails --lines 50
 
 # Проверьте порт
-sudo netstat -tlnp | grep 3847
+sudo netstat -tlnp | grep 5010
 ```
 
 ### Nginx ошибка 502 Bad Gateway

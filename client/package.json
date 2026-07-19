@@ -57,6 +57,7 @@
   },
   "reactSnap": {
     "source": "build",
+    "crawl": false,
     "include": [
       "/",
       "/ru",

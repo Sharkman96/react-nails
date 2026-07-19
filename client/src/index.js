@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { createRoot, hydrateRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './i18n';
 import './index.css';
@@ -31,13 +31,9 @@ const app = (
 
 const container = document.getElementById('root');
 
-if (container.hasChildNodes()) {
-  hydrateRoot(container, app);
-} else {
-  createRoot(container).render(app);
-}
+// Always createRoot: hydrateRoot + react-snap causes React #418/#423 when
+// a previously saved index.html is reused for another route during the crawl.
+container.innerHTML = '';
+createRoot(container).render(app);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

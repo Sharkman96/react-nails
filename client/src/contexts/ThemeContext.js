@@ -11,42 +11,44 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Проверяем сохраненную тему или системные настройки
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    // Проверяем системные настройки
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  // Default light on first paint to avoid SSR/react-snap hydration mismatch
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [themeReady, setThemeReady] = useState(false);
 
   useEffect(() => {
-    // Сохраняем тему в localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+    } else {
+      setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    setThemeReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!themeReady) return undefined;
+
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    
-    // Применяем тему к документу
     document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    
-    // Слушаем изменения системных настроек
+
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e) => {
       if (!localStorage.getItem('theme')) {
         setIsDarkMode(e.matches);
       }
     };
-    
+
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [isDarkMode]);
+  }, [isDarkMode, themeReady]);
 
   const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
+    setIsDarkMode((prev) => !prev);
   };
 
   const value = {
     isDarkMode,
-    toggleTheme
+    toggleTheme,
   };
 
   return (
@@ -54,4 +56,4 @@ export const ThemeProvider = ({ children }) => {
       {children}
     </ThemeContext.Provider>
   );
-}; 
+};

@@ -137,7 +137,10 @@ const Hero = () => {
                 src="/assets/hero-image.jpg"
                 alt={t('hero.imageAlt', 'Professional nail art')}
                 className="hero-main-image"
-                loading="lazy"
+                width={720}
+                height={900}
+                decoding="async"
+                fetchPriority="high"
                 onError={() => setImageError(true)}
               />
             ) : (

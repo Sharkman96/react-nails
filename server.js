@@ -252,8 +252,9 @@ app.get('/sw.js', (req, res) => {
 });
 
 const buildDir = path.join(__dirname, 'client/build');
-const notFoundHtml = path.join(buildDir, '404.html');
-const notFoundFallback = path.join(__dirname, 'client/public/404.html');
+// Named notfound.html (not 404.html) so react-snap does not auto-crawl it as an SPA route
+const notFoundHtml = path.join(buildDir, 'notfound.html');
+const notFoundFallback = path.join(__dirname, 'client/public/notfound.html');
 
 const sendLocaleIndex = (locale, res) => {
   const localeIndex = path.join(buildDir, locale, 'index.html');
