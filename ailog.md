@@ -74,3 +74,34 @@
 ### Действие
 В `DEPLOY_VPS.md` все `3847` → `5010` (`proxy_pass` и health-check).
 Отдельно: вопрос про Google-отзывы — варианты предложены, реализация ждёт выбора.
+
+## 2026-07-19 — Google Reviews (brainstorm)
+
+### Действие
+Пользователь хочет отзывы профиля компании с Google Maps; включил My Business Business Information API; приложил OAuth client_secret JSON.
+
+### Контекст проекта
+- Секции Reviews на сайте нет; в `schema.js` уже есть `createReviewSchema` (AggregateRating).
+- SEO_PROMPT: не добавлять AggregateRating без реальных отзывов.
+- `project.init.md` и `prestart.checklist` отсутствуют.
+
+### Важно по API
+- Business Information API **не отдаёт отзывы**.
+- Отзывы GBP: My Business API v4 `accounts.locations.reviews` + OAuth `business.manage`.
+- Альтернатива проще: Places API (Place Details) — до ~5 отзывов, API key.
+- Client secret не коммитить в репо; файл из Downloads содержит secret — не дублировать в git.
+
+### Статус
+Уточнение требований (один вопрос за раз), реализация не начата.
+
+## 2026-07-19 — Google Reviews design approved
+
+### Решения
+- UI-блок (карточки + рейтинг), не только SEO
+- Places API + серверный кэш `data/reviews.json` TTL 7 дней
+- Позиция: после Gallery, перед About
+- OAuth client_secret не использовать; нужны `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID`
+
+### Результат
+- Spec: `docs/superpowers/specs/2026-07-19-google-places-reviews-design.md`
+- Реализация ждёт review spec → writing-plans
