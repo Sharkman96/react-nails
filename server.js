@@ -128,7 +128,25 @@ const reviewsRoutes = require('./routes/reviews');
 const analyticsRoutes = require('./routes/analytics');
 const csrfRoutes = require('./routes/csrf');
 const sitemapRoutes = require('./routes/sitemap');
-const { resolveSpaRequest } = require('./lib/spaRoutes');
+const {
+  resolveSpaRequest,
+  robotsTagForPath,
+  isPublicHttpHost,
+  httpsCanonicalUrl,
+} = require('./lib/spaRoutes');
+
+// Public HTTP host → HTTPS apex (nginx should 301 first; this is a fallback)
+app.use((req, res, next) => {
+  const host = req.hostname || req.get('host');
+  if (!isPublicHttpHost(host)) return next();
+  const proto = String(req.get('x-forwarded-proto') || req.protocol || 'http')
+    .split(',')[0]
+    .trim()
+    .toLowerCase();
+  if (proto === 'https') return next();
+  res.set('X-Robots-Tag', 'noindex, nofollow');
+  return res.redirect(301, httpsCanonicalUrl(req.originalUrl || '/'));
+});
 
 // Rate limiting для аутентификации (более строгий)
 app.use('/api/auth', authRateLimitMiddleware);
@@ -298,6 +316,8 @@ app.use((req, res, next) => {
   }
 
   if (decision.type === 'spa') {
+    const robots = robotsTagForPath(decision.path);
+    if (robots) res.set('X-Robots-Tag', robots);
     return sendSpaHtml(decision.path, decision.locale, res);
   }
 

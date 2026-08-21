@@ -31,10 +31,6 @@ const buildSitemapXml = () => {
         { hreflang: 'ru-RU', href: `${BASE_URL}/ru` },
       ],
     },
-    { loc: `${BASE_URL}/impressum`, changefreq: 'monthly', priority: '0.5' },
-    { loc: `${BASE_URL}/datenschutz`, changefreq: 'monthly', priority: '0.5' },
-    { loc: `${BASE_URL}/ru/impressum`, changefreq: 'monthly', priority: '0.5' },
-    { loc: `${BASE_URL}/ru/datenschutz`, changefreq: 'monthly', priority: '0.5' },
   ];
 
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -96,3 +92,4 @@ router.get('/robots.txt', (req, res) => {
 });
 
 module.exports = router;
+module.exports.buildSitemapXml = buildSitemapXml;

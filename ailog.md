@@ -168,3 +168,27 @@ UI скрывает секцию при пустом ответе — ожида
 - `reviewsController`: reason в пустом ответе, fallback только на непустой кэш
 - `DEPLOY_VPS.md`: lib/ в zip
 - Пользователь: Places API key с IP restriction 84.247.134.224
+
+## 2026-08-21 — GSC Coverage: HTTP + legal noindex
+
+### Действие
+Критические проблемы Coverage 2026-08-21: «Страница с переадресацией» (5) и «Обнаружена, не проиндексирована» (3). Запрос: убрать HTTP из индекса и не индексировать Datenschutz / служебные страницы.
+
+### Корневая причина
+- Sitemap предлагал Google `/datenschutz` и `/impressum` (de/ru) с `index,follow`.
+- `index.html` содержит `googlebot: index`; prerender юридических страниц наследовал это.
+- HTTP/www URL попадают в Coverage как редиректы; на 301 не было `X-Robots-Tag: noindex`.
+
+### Правки
+- Sitemap (static + Express): только `https://stuttgartnails.de/` и `/ru`.
+- LegalPage: `noindex`; SEO: `googlebot` noindex, без hreflang на служебных.
+- Express: `X-Robots-Tag: noindex, follow` на legal; fallback HTTP→HTTPS + noindex для публичного хоста.
+- `DEPLOY_VPS.md`: nginx HTTP/www `X-Robots-Tag: noindex` + HSTS.
+
+### Верификация
+- `node --test lib/spaRoutes.test.js routes/sitemap.test.js` — 15 PASS
+- client `App.test.js` — 5 PASS
+
+### Pending
+- Деплой кода + nginx на VPS
+- GSC: не запрашивать индекс legal/http; дождаться переобхода

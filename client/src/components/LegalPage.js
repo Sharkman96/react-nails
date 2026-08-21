@@ -55,6 +55,7 @@ const LegalPage = ({ page }) => {
         title={t(`legal.${page}.title`)}
         description={t(`legal.${page}.metaDescription`, legalValues)}
         canonical={canonicalUrl}
+        noindex
         schema={createBreadcrumbSchema([
           { name: t('navigation.home'), url: getCanonicalUrl(routeLang) },
           { name: t(`legal.${page}.title`), url: canonicalUrl },

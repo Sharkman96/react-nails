@@ -63,16 +63,20 @@ const SEO = ({
       {keywords ? <meta name="keywords" content={keywords} /> : null}
 
       <link rel="canonical" href={canonicalHref} />
-      <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/`} />
-      <link rel="alternate" hrefLang="de" href={`${SITE_URL}/`} />
-      <link rel="alternate" hrefLang="de-DE" href={`${SITE_URL}/`} />
-      <link rel="alternate" hrefLang="ru" href={`${SITE_URL}/ru`} />
-      <link rel="alternate" hrefLang="ru-RU" href={`${SITE_URL}/ru`} />
+      {!noindex ? <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/`} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="de" href={`${SITE_URL}/`} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="de-DE" href={`${SITE_URL}/`} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="ru" href={`${SITE_URL}/ru`} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="ru-RU" href={`${SITE_URL}/ru`} /> : null}
       <meta httpEquiv="content-language" content={lang === 'ru' ? 'ru' : 'de'} />
 
       <meta
         name="robots"
         content={`${noindex ? 'noindex' : 'index'}, ${nofollow ? 'nofollow' : 'follow'}, max-image-preview:large, max-snippet:-1, max-video-preview:-1`}
+      />
+      <meta
+        name="googlebot"
+        content={`${noindex ? 'noindex' : 'index'}, ${nofollow ? 'nofollow' : 'follow'}`}
       />
 
       <meta property="og:type" content={type} />

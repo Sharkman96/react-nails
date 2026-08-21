@@ -154,11 +154,12 @@ sudo nano /etc/nginx/sites-available/stuttgartnails
 **Вставьте конфигурацию** (пути SSL — после Certbot; при первой установке сначала получите сертификат, затем примените блоки):
 
 ```nginx
-# 1) HTTP → HTTPS apex (оба hostname)
+# 1) HTTP → HTTPS apex (оба hostname). noindex, чтобы GSC не индексировал http://
 server {
     listen 80;
     listen [::]:80;
     server_name stuttgartnails.de www.stuttgartnails.de;
+    add_header X-Robots-Tag "noindex, nofollow" always;
     return 301 https://stuttgartnails.de$request_uri;
 }
 
@@ -173,6 +174,8 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
+    add_header X-Robots-Tag "noindex, nofollow" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     return 301 https://stuttgartnails.de$request_uri;
 }
 
@@ -186,6 +189,8 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/stuttgartnails.de/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
     location / {
         proxy_pass http://127.0.0.1:5010;
@@ -204,6 +209,7 @@ server {
         proxy_pass http://127.0.0.1:5010;
         proxy_cache_valid 200 30d;
         add_header Cache-Control "public, immutable, max-age=2592000";
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     }
 
     gzip on;
@@ -238,14 +244,18 @@ curl -sI https://stuttgartnails.de/ru | head -n 5
 curl -sI https://stuttgartnails.de/am/spam-test | head -n 5
 # ожидается: 404
 
-curl -sI http://stuttgartnails.de/ | head -n 5
-# ожидается: 301 → https://stuttgartnails.de/
+curl -sI http://stuttgartnails.de/ | head -n 8
+# ожидается: 301 → https://stuttgartnails.de/ и X-Robots-Tag: noindex
+
+curl -sI https://stuttgartnails.de/datenschutz | findstr /I "HTTP X-Robots"
+# ожидается: 200 и X-Robots-Tag: noindex, follow
 ```
 
 ### Шаг 13c: Google Search Console после деплоя
 1. Removals → Temporary removal для спам-URL (`/am/...`).
 2. URL Inspection → Request indexing для `https://stuttgartnails.de/` и `https://stuttgartnails.de/ru`.
-3. Дождаться переобхода Coverage.
+3. Не запрашивать индексацию `/datenschutz`, `/impressum` и любых `http://` URL.
+4. Дождаться переобхода Coverage. HTTP-URL останутся в «Страница с переадресацией» — это исключение, не индекс.
 
 ---
 

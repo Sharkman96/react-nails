@@ -21,6 +21,25 @@ describe('SEO configuration', () => {
     expect(sitemap).not.toContain('<loc>https://stuttgartnails.de/de</loc>');
   });
 
+  test('sitemap lists only https promotional URLs, not legal pages', () => {
+    const sitemap = fs.readFileSync(publicPath('sitemap.xml'), 'utf8');
+
+    expect(sitemap).toContain('<loc>https://stuttgartnails.de/</loc>');
+    expect(sitemap).toContain('<loc>https://stuttgartnails.de/ru</loc>');
+    expect(sitemap).not.toContain('http://stuttgartnails.de');
+    expect(sitemap).not.toContain('stuttgartnails.de/datenschutz');
+    expect(sitemap).not.toContain('stuttgartnails.de/impressum');
+  });
+
+  test('legal pages request noindex and robots sitemap is https', () => {
+    const legal = fs.readFileSync(path.join(__dirname, 'components', 'LegalPage.js'), 'utf8');
+    const robots = fs.readFileSync(publicPath('robots.txt'), 'utf8');
+
+    expect(legal).toMatch(/noindex(?:\s*=\s*\{?\s*true)?/);
+    expect(robots).toContain('Sitemap: https://stuttgartnails.de/sitemap.xml');
+    expect(robots).not.toContain('Sitemap: http://');
+  });
+
   test('references existing logo assets from schema and manifest', () => {
     expect(BUSINESS.logo).toBe('https://stuttgartnails.de/logo512.png');
     expect(fs.existsSync(publicPath('logo192.png'))).toBe(true);
