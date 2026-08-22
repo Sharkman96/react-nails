@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
-import { getLanguagePath } from '../utils/localeRoutes';
+import { getLanguagePath, getSiblingLanguagePath, isHomePath } from '../utils/localeRoutes';
 import './Header.css';
 
 const Header = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const { isDarkMode, toggleTheme } = useTheme();
+  const uiLang = i18n.language === 'ru' ? 'ru' : 'de';
+  const homePath = getLanguagePath(uiLang);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
 
@@ -22,8 +25,8 @@ const Header = () => {
   };
 
   const changeLanguage = (lng) => {
-    const nextPath = getLanguagePath(lng);
-    if (window.location.pathname !== nextPath) {
+    const nextPath = getSiblingLanguagePath(location.pathname, lng);
+    if (location.pathname !== nextPath) {
       navigate(nextPath);
     }
     i18n.changeLanguage(lng);
@@ -32,6 +35,11 @@ const Header = () => {
 
     const scrollToSection = (sectionId) => {
     setIsMenuOpen(false);
+
+    if (!isHomePath(location.pathname)) {
+      navigate(`${homePath}#${sectionId}`);
+      return;
+    }
     
     // Небольшая задержка для закрытия меню
     setTimeout(() => {
@@ -64,7 +72,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <span className="logo-title">SmartNails Stuttgart</span>
+          <Link to={homePath} className="logo-title">SmartNails Stuttgart</Link>
         </div>
 
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>

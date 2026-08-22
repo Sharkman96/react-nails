@@ -2,11 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { prerenderInitial } from '../utils/prerender';
+import { getLandingPath } from '../utils/localeRoutes';
 import './GelNails.css';
 
 const GelNails = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === 'ru' ? 'ru' : 'de';
 
   const items = ['gelPolish', 'buildUp', 'extensions'];
 
@@ -53,9 +56,9 @@ const GelNails = () => {
           viewport={{ once: true }}
           className="gelnails-cta-wrap"
         >
-          <a href="#services" className="gelnails-cta">
+          <Link to={getLandingPath('gelnagel-stuttgart', lang)} className="gelnails-cta">
             {t('gelnails.cta')}
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

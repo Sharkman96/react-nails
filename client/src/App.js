@@ -18,12 +18,13 @@ import Contact from './components/Contact';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import LegalPage from './components/LegalPage';
+import LandingPage from './components/LandingPage';
 import SEO from './components/SEO';
 import NotFound from './components/NotFound';
 import {
   createBreadcrumbSchema,
 } from './utils/schema';
-import { getCanonicalUrl, getLangFromPath } from './utils/localeRoutes';
+import { getCanonicalUrl, getHreflangAlternates, getLangFromPath, LANDING_SLUGS } from './utils/localeRoutes';
 import { isReactSnapPrerender } from './utils/prerender';
 
 const MainSite = () => {
@@ -47,6 +48,15 @@ const MainSite = () => {
 
   const canonicalUrl = getCanonicalUrl(routeLang);
 
+  useEffect(() => {
+    if (!isLoaded || !location.hash) return undefined;
+    const id = location.hash.slice(1);
+    const timer = window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+    return () => window.clearTimeout(timer);
+  }, [isLoaded, location.hash]);
+
   if (!isLoaded && !snap) {
     return <div className="loading-screen">Loading...</div>;
   }
@@ -60,6 +70,7 @@ const MainSite = () => {
         keywords={t('meta.keywords')}
         image="/og-image.jpg"
         canonical={canonicalUrl}
+        alternates={getHreflangAlternates()}
         schema={[
           createBreadcrumbSchema([
             { name: t('navigation.home'), url: `${canonicalUrl}` },
@@ -124,6 +135,12 @@ const LocalizedLegalPage = ({ page }) => (
   </Layout>
 );
 
+const LocalizedLandingPage = ({ slug }) => (
+  <Layout>
+    <LandingPage slug={slug} />
+  </Layout>
+);
+
 function App() {
   return (
     <ThemeProvider>
@@ -132,6 +149,20 @@ function App() {
           <Route path="/" element={<LocalizedApp />} />
           <Route path="/de" element={<Navigate to="/" replace />} />
           <Route path="/ru" element={<LocalizedApp />} />
+          {LANDING_SLUGS.map((slug) => (
+            <Route
+              key={slug}
+              path={`/${slug}`}
+              element={<LocalizedLandingPage slug={slug} />}
+            />
+          ))}
+          {LANDING_SLUGS.map((slug) => (
+            <Route
+              key={`ru-${slug}`}
+              path={`/ru/${slug}`}
+              element={<LocalizedLandingPage slug={slug} />}
+            />
+          ))}
           <Route path="/impressum" element={<LocalizedLegalPage page="impressum" />} />
           <Route path="/datenschutz" element={<LocalizedLegalPage page="datenschutz" />} />
           <Route path="/ru/impressum" element={<LocalizedLegalPage page="impressum" />} />

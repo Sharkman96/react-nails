@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Instagram, MapPin } from 'lucide-react';
 import { GOOGLE_MAPS_URL } from '../utils/schema';
-import { getLegalPath } from '../utils/localeRoutes';
+import { getLandingPath, getLegalPath, LANDING_SLUGS } from '../utils/localeRoutes';
 import './Footer.css';
 
 const Footer = () => {
@@ -20,7 +20,14 @@ const Footer = () => {
           <span className="footer-copy">© {year}</span>
         </div>
 
-        <nav className="footer-legal" aria-label={t('footer.legalNav', { defaultValue: 'Rechtliches' })}>
+        <nav className="footer-legal" aria-label={t('landing.relatedLabel')}>
+          {LANDING_SLUGS.map((slug, index) => (
+            <React.Fragment key={slug}>
+              {index > 0 ? <span className="footer-legal-divider" aria-hidden="true">·</span> : null}
+              <Link to={getLandingPath(slug, lang)}>{t(`landing.${slug}.title`)}</Link>
+            </React.Fragment>
+          ))}
+          <span className="footer-legal-divider" aria-hidden="true">·</span>
           <Link to={getLegalPath('impressum', lang)}>{t('footer.impressum')}</Link>
           <span className="footer-legal-divider" aria-hidden="true">·</span>
           <Link to={getLegalPath('datenschutz', lang)}>{t('footer.privacy')}</Link>

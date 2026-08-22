@@ -11,9 +11,9 @@ const RU_DIR = path.join(BUILD_DIR, 'ru');
 const RU_INDEX = path.join(RU_DIR, 'index.html');
 
 const RU_DESCRIPTION =
-  'Маникюр, смарт-педикюр, гель-лак, наращивание и дизайн ногтей в Штутгарте (70191). Запись в WhatsApp или Instagram. Русский и немецкий языки.';
+  'Студия маникюра в Stuttgart-Nord (70191, Im Kaisemer 26A): гель-лак, маникюр и наращивание. Запись в WhatsApp или Instagram.';
 const RU_KEYWORDS =
-  'маникюр Штутгарт, педикюр Штутгарт, наращивание ногтей Штутгарт, гель лак Штутгарт, дизайн ногтей, салон Im Kaisemer 26A Stuttgart, русский мастер маникюра Германия';
+  'маникюр Штутгарт, студия маникюра Штутгарт, гель-лак Штутгарт, наращивание ногтей Штутгарт, Stuttgart-Nord, 70191, Im Kaisemer, SmartNails';
 
 const RU_FAQ_JSON_LD = `        {
           "@type": "FAQPage",
@@ -97,11 +97,11 @@ function patchRuHtml(html) {
   );
   out = out.replace(
     /<meta property="og:title" content="[^"]*">/,
-    '<meta property="og:title" content="Маникюр и педикюр Штутгарт | SmartNails Stuttgart">'
+    '<meta property="og:title" content="Маникюр Штутгарт-Норд | гель-лак и наращивание | SmartNails Stuttgart">'
   );
   out = out.replace(
     /<meta property="og:description" content="[^"]*">/,
-    '<meta property="og:description" content="Маникюр, гель-лак, наращивание и дизайн ногтей в Штутгарте. Запись в WhatsApp или Instagram.">'
+    '<meta property="og:description" content="Студия в Stuttgart-Nord (70191, Im Kaisemer 26A): гель-лак, маникюр и наращивание. Запись в WhatsApp.">'
   );
   out = out.replace(
     /<meta property="og:locale" content="de_DE">/,
@@ -118,7 +118,7 @@ function patchRuHtml(html) {
   );
   out = out.replace(
     /<meta name="twitter:title" content="[^"]*">/,
-    '<meta name="twitter:title" content="Маникюр и педикюр Штутгарт | SmartNails Stuttgart">'
+    '<meta name="twitter:title" content="Маникюр Штутгарт-Норд | гель-лак и наращивание | SmartNails Stuttgart">'
   );
   out = out.replace(
     /<meta name="twitter:description" content="[^"]*">/,
@@ -127,7 +127,7 @@ function patchRuHtml(html) {
 
   out = out.replace(
     /<title>[^<]*<\/title>/,
-    '<title>Маникюр и педикюр Штутгарт | SmartNails Stuttgart</title>'
+    '<title>Маникюр Штутгарт-Норд | гель-лак и наращивание | SmartNails Stuttgart</title>'
   );
 
   // Заменяем весь объект FAQPage в @graph (включая { … }), иначе JSON-LD ломается

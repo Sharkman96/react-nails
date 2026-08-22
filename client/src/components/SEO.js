@@ -26,6 +26,8 @@ const SEO = ({
   nofollow = false,
   /** Язык интерфейса: de | ru — для <html lang> и части мета */
   lang = 'de',
+  /** Пары hreflang { de, ru }. По умолчанию — главная / и /ru */
+  alternates = null,
   /** Только JSON-LD (без title/canonical), чтобы не дублировать главный SEO */
   schemaOnly = false,
 }) => {
@@ -43,6 +45,8 @@ const SEO = ({
   const fullImage = imagePath ? `${SITE_URL}${imagePath}` : defaultImage;
 
   const schemas = serializeSchemas(schema);
+  const hrefDe = alternates?.de || `${SITE_URL}/`;
+  const hrefRu = alternates?.ru || `${SITE_URL}/ru`;
 
   if (schemaOnly) {
     return (
@@ -63,11 +67,11 @@ const SEO = ({
       {keywords ? <meta name="keywords" content={keywords} /> : null}
 
       <link rel="canonical" href={canonicalHref} />
-      {!noindex ? <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}/`} /> : null}
-      {!noindex ? <link rel="alternate" hrefLang="de" href={`${SITE_URL}/`} /> : null}
-      {!noindex ? <link rel="alternate" hrefLang="de-DE" href={`${SITE_URL}/`} /> : null}
-      {!noindex ? <link rel="alternate" hrefLang="ru" href={`${SITE_URL}/ru`} /> : null}
-      {!noindex ? <link rel="alternate" hrefLang="ru-RU" href={`${SITE_URL}/ru`} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="x-default" href={hrefDe} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="de" href={hrefDe} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="de-DE" href={hrefDe} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="ru" href={hrefRu} /> : null}
+      {!noindex ? <link rel="alternate" hrefLang="ru-RU" href={hrefRu} /> : null}
       <meta httpEquiv="content-language" content={lang === 'ru' ? 'ru' : 'de'} />
 
       <meta

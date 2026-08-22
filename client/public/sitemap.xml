@@ -7,6 +7,7 @@
     <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru" />
     <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru" />
+    <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -17,7 +18,96 @@
     <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru" />
     <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru" />
+    <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/gelnagel-stuttgart</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/gelnagel-stuttgart" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/ru/gelnagel-stuttgart</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/gelnagel-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/gelnagel-stuttgart" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/manikure-stuttgart</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/manikure-stuttgart" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/ru/manikure-stuttgart</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/manikure-stuttgart" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/manikure-stuttgart" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/preise</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/preise" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/preise" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/preise" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/preise" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/preise" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/ru/preise</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/preise" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/preise" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/preise" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/preise" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/preise" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/stuttgart-nord</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/stuttgart-nord" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stuttgartnails.de/ru/stuttgart-nord</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stuttgartnails.de/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://stuttgartnails.de/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="de-DE" href="https://stuttgartnails.de/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://stuttgartnails.de/ru/stuttgart-nord" />
+    <xhtml:link rel="alternate" hreflang="ru-RU" href="https://stuttgartnails.de/ru/stuttgart-nord" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

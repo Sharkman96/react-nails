@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { BUSINESS, createBeautySalonSchema } from './utils/schema';
-import { getCanonicalUrl } from './utils/localeRoutes';
+import { getCanonicalUrl, getLandingPath, getSiblingLanguagePath } from './utils/localeRoutes';
 
 const publicPath = (...segments) => path.join(__dirname, '..', 'public', ...segments);
 
@@ -26,9 +26,21 @@ describe('SEO configuration', () => {
 
     expect(sitemap).toContain('<loc>https://stuttgartnails.de/</loc>');
     expect(sitemap).toContain('<loc>https://stuttgartnails.de/ru</loc>');
+    expect(sitemap).toContain('<loc>https://stuttgartnails.de/gelnagel-stuttgart</loc>');
+    expect(sitemap).toContain('<loc>https://stuttgartnails.de/ru/stuttgart-nord</loc>');
     expect(sitemap).not.toContain('http://stuttgartnails.de');
     expect(sitemap).not.toContain('stuttgartnails.de/datenschutz');
     expect(sitemap).not.toContain('stuttgartnails.de/impressum');
+  });
+
+  test('keeps landing language pairs on the same topic', () => {
+    expect(getLandingPath('preise', 'de')).toBe('/preise');
+    expect(getLandingPath('preise', 'ru')).toBe('/ru/preise');
+    expect(getSiblingLanguagePath('/gelnagel-stuttgart', 'ru')).toBe('/ru/gelnagel-stuttgart');
+    expect(getSiblingLanguagePath('/ru/impressum', 'de')).toBe('/impressum');
+    expect(getCanonicalUrl('de', '/manikure-stuttgart')).toBe(
+      'https://stuttgartnails.de/manikure-stuttgart'
+    );
   });
 
   test('legal pages request noindex and robots sitemap is https', () => {

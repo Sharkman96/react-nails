@@ -1,9 +1,26 @@
 const express = require('express');
+const { LANDING_SLUGS } = require('../lib/landingPages');
 const router = express.Router();
 
 const BASE_URL = 'https://stuttgartnails.de';
 
-/** Одностраничный сайт: только реальные URL без «мёртвых» /services/:id */
+const homeAlternates = [
+  { hreflang: 'x-default', href: `${BASE_URL}/` },
+  { hreflang: 'de', href: `${BASE_URL}/` },
+  { hreflang: 'de-DE', href: `${BASE_URL}/` },
+  { hreflang: 'ru', href: `${BASE_URL}/ru` },
+  { hreflang: 'ru-RU', href: `${BASE_URL}/ru` },
+];
+
+const landingAlternates = (slug) => [
+  { hreflang: 'x-default', href: `${BASE_URL}/${slug}` },
+  { hreflang: 'de', href: `${BASE_URL}/${slug}` },
+  { hreflang: 'de-DE', href: `${BASE_URL}/${slug}` },
+  { hreflang: 'ru', href: `${BASE_URL}/ru/${slug}` },
+  { hreflang: 'ru-RU', href: `${BASE_URL}/ru/${slug}` },
+];
+
+/** Главная + посадочные. Legal-страницы в sitemap не попадают. */
 const buildSitemapXml = () => {
   const lastmod = new Date().toISOString().split('T')[0];
   const pages = [
@@ -11,26 +28,28 @@ const buildSitemapXml = () => {
       loc: `${BASE_URL}/`,
       changefreq: 'weekly',
       priority: '1.0',
-      alternates: [
-        { hreflang: 'x-default', href: `${BASE_URL}/` },
-        { hreflang: 'de', href: `${BASE_URL}/` },
-        { hreflang: 'de-DE', href: `${BASE_URL}/` },
-        { hreflang: 'ru', href: `${BASE_URL}/ru` },
-        { hreflang: 'ru-RU', href: `${BASE_URL}/ru` },
-      ],
+      alternates: homeAlternates,
     },
     {
       loc: `${BASE_URL}/ru`,
       changefreq: 'weekly',
       priority: '0.9',
-      alternates: [
-        { hreflang: 'x-default', href: `${BASE_URL}/` },
-        { hreflang: 'de', href: `${BASE_URL}/` },
-        { hreflang: 'de-DE', href: `${BASE_URL}/` },
-        { hreflang: 'ru', href: `${BASE_URL}/ru` },
-        { hreflang: 'ru-RU', href: `${BASE_URL}/ru` },
-      ],
+      alternates: homeAlternates,
     },
+    ...LANDING_SLUGS.flatMap((slug) => [
+      {
+        loc: `${BASE_URL}/${slug}`,
+        changefreq: 'weekly',
+        priority: '0.8',
+        alternates: landingAlternates(slug),
+      },
+      {
+        loc: `${BASE_URL}/ru/${slug}`,
+        changefreq: 'weekly',
+        priority: '0.7',
+        alternates: landingAlternates(slug),
+      },
+    ]),
   ];
 
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
@@ -42,7 +61,7 @@ const buildSitemapXml = () => {
     page.alternates?.forEach((alternate) => {
       xml += `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${alternate.href}" />\n`;
     });
-    xml += `    <lastmod>${lastmod}</lastmod>\n`;
+    xml += `    <lastmod>${page.lastmod || lastmod}</lastmod>\n`;
     xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
     xml += `    <priority>${page.priority}</priority>\n`;
     xml += '  </url>\n';

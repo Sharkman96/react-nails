@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
-import { GOOGLE_MAPS_URL } from '../utils/schema';
+import SEO from './SEO';
+import { createReviewSchema, GOOGLE_MAPS_URL } from '../utils/schema';
 import { prerenderInitial } from '../utils/prerender';
 import './Reviews.css';
 
@@ -91,6 +92,21 @@ const Reviews = () => {
 
   return (
     <section id="reviews" className="reviews">
+      {hasRating ? (
+        <SEO
+          schemaOnly
+          schema={createReviewSchema({
+            averageRating: data.rating,
+            totalReviews: count,
+            items: reviews.map((review) => ({
+              author: review.author,
+              rating: review.rating,
+              text: review.text,
+              date: review.publishTime,
+            })),
+          })}
+        />
+      ) : null}
       <div className="reviews-container">
         <div className="reviews-layout">
           <motion.div

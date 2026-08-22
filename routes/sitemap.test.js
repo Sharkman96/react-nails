@@ -7,6 +7,8 @@ describe('buildSitemapXml', () => {
     const xml = buildSitemapXml();
     assert.match(xml, /<loc>https:\/\/stuttgartnails\.de\/<\/loc>/);
     assert.match(xml, /<loc>https:\/\/stuttgartnails\.de\/ru<\/loc>/);
+    assert.match(xml, /<loc>https:\/\/stuttgartnails\.de\/gelnagel-stuttgart<\/loc>/);
+    assert.match(xml, /<loc>https:\/\/stuttgartnails\.de\/ru\/preise<\/loc>/);
     assert.doesNotMatch(xml, /http:\/\/stuttgartnails\.de/);
     assert.doesNotMatch(xml, /datenschutz/);
     assert.doesNotMatch(xml, /impressum/);

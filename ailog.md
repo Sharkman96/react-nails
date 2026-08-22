@@ -192,3 +192,43 @@ UI скрывает секцию при пустом ответе — ожида
 ### Pending
 - Деплой кода + nginx на VPS
 - GSC: не запрашивать индекс legal/http; дождаться переобхода
+
+## 2026-08-22 — GSC Performance: клики и позиции
+
+### Действие
+Разбор выгрузки Google Search Console (веб, 21.05–20.08.2026) из Downloads + копия в репо.
+
+### Результат
+- 35 кликов / ~999 показов / CTR 3.5% / средняя позиция 27.
+- Показы скакнули с ~02.07, клики остались 1–7/нед.
+- 31 клик с `/`; мобильный CTR 5.7% (поз. 12), ПК 1.3% (поз. 38).
+- Главный запрос `nagelstudio stuttgart`: 8 кликов, 130 показов, поз. 40.
+- `nagelstudio milaneo` поз. 1.2 и 0 кликов — чужой интент (ТЦ, не Nord).
+- Canvas: `gsc-search-clicks.canvas.tsx`.
+
+### Рекомендации (без правок кода)
+1. GBP / Maps — главный рычаг кликов.
+2. Title главной под «Nagelstudio Stuttgart-Nord».
+3. Добить отзывы на проде (Places API).
+4. Посадочные: gelnägel, maniküre, preise, stuttgart-nord.
+5. Не таргетировать milaneo / Mitte / конкурентов.
+
+## 2026-08-22 — SEO: title, посадочные, отзывы schema
+
+### Сделано в коде
+- Title/H1/description главной: «Nagelstudio Stuttgart-Nord».
+- 8 URL: `/gelnagel-stuttgart`, `/manikure-stuttgart`, `/preise`, `/stuttgart-nord` + `/ru/...`.
+- Sitemap, react-snap, spa allowlist, hreflang на пару DE/RU той же темы.
+- Header: логотип → домой; язык остаётся на той же посадочной; якоря с внутренних страниц.
+- Footer и CTA Gelnägel ведут на посадочные.
+- JSON-LD AggregateRating, если `/api/reviews` отдаёт рейтинг.
+- Тексты блока: отзывы с Google Maps (не свои карточки).
+
+### Тесты
+- `node --test lib/spaRoutes.test.js routes/sitemap.test.js` — 16 PASS
+- `client/src/App.test.js` — 6 PASS
+
+### Не в коде (нужно вручную)
+1. Деплой на VPS + в GSC «Проверить URL» для `/` и 4 DE-посадочных.
+2. GBP: категория Nagelstudio, фото, услуги, посты, Q&A, отзывы.
+3. Отзывы на сайте: `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID` на VPS (IP, не HTTP referrer).

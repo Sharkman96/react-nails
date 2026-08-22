@@ -1,0 +1,196 @@
+.landing-page {
+  padding: calc(var(--header-height) + 2.5rem) 0 var(--section-pad);
+  min-height: 70vh;
+}
+
+.landing-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.landing-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.landing-back:hover {
+  color: var(--accent-primary);
+}
+
+.landing-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.landing-eyebrow {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin: 0 0 0.7rem;
+}
+
+.landing-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.85rem;
+  line-height: 1.15;
+}
+
+.landing-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.landing-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.landing-section h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.85rem;
+}
+
+.landing-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.landing-section p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem;
+}
+
+.landing-section p:last-child {
+  margin-bottom: 0;
+}
+
+.landing-section ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.landing-section li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 0.45rem;
+}
+
+.landing-faq {
+  margin-bottom: 1.1rem;
+}
+
+.landing-faq:last-child {
+  margin-bottom: 0;
+}
+
+.landing-prices {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin: 0.4rem 0 1rem;
+}
+
+.landing-price-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.landing-price-group li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border-color);
+  margin: 0;
+}
+
+.landing-price-group strong {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.landing-cta {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.landing-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.4rem;
+  border-radius: 60px;
+  background: var(--accent-primary);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.landing-cta-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.landing-related {
+  margin-top: 2rem;
+}
+
+.landing-related p {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin: 0 0 0.6rem;
+}
+
+.landing-related ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.landing-related a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.landing-related a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .landing-container {
+    padding: 0 1.2rem;
+  }
+}

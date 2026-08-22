@@ -1,14 +1,14 @@
 {
   "hero": {
-    "title": "Maniküre Stuttgart",
-    "subtitle": "Nagelstudio für gepflegte Nägel und Naildesign",
-    "description": "SmartNails Stuttgart in 70191 Stuttgart: Maniküre, Smart-Pediküre, Gel-Lack, Nagelverlängerung und individuelles Nageldesign nach Terminvereinbarung.",
-    "imageAlt": "Maniküre und Naildesign im Nagelstudio SmartNails Stuttgart"
+    "title": "Nagelstudio Stuttgart-Nord",
+    "subtitle": "Gelnägel, Maniküre und Nageldesign",
+    "description": "SmartNails in 70191 Stuttgart (Im Kaisemer 26A): Gelnägel, Maniküre, Smart-Pediküre, Gel-Lack und Nagelverlängerung nach Terminvereinbarung.",
+    "imageAlt": "Maniküre und Naildesign im Nagelstudio SmartNails Stuttgart-Nord"
   },
   "meta": {
-    "title": "Maniküre & Gelnägel Stuttgart | SmartNails Nagelstudio",
-    "description": "Gelnägel, Gel-Lack und Nagelverlängerung in Stuttgart (70191). Nagelstudio SmartNails — Termin per WhatsApp oder Instagram.",
-    "keywords": "Maniküre Stuttgart, Nagelstudio Stuttgart, Gelnägel Stuttgart, Gel Nägel Stuttgart, Gel-Lack Stuttgart, Nagelverlängerung Stuttgart, Nageldesign Stuttgart, SmartNails"
+    "title": "Nagelstudio Stuttgart-Nord | Gelnägel & Maniküre",
+    "description": "Nagelstudio in Stuttgart-Nord (70191, Im Kaisemer 26A): Gelnägel, Maniküre, Gel-Lack und Nagelverlängerung. Termin per WhatsApp oder Instagram.",
+    "keywords": "Nagelstudio Stuttgart, Nagelstudio Stuttgart-Nord, Gelnägel Stuttgart, Maniküre Stuttgart, Gel-Lack Stuttgart, Nagelverlängerung Stuttgart, 70191, Im Kaisemer, SmartNails"
   },
   "services": {
     "title": "Dienstleistungen und Preise",
@@ -70,7 +70,7 @@
         "price": "ab 55 €"
       }
     },
-    "cta": "Preise & Leistungen ansehen"
+    "cta": "Mehr zu Gelnägeln in Stuttgart"
   },
   "promo": {
     "eyebrow": "Geheimer Website-Bonus",
@@ -92,9 +92,9 @@
   "reviews": {
     "eyebrow": "Bewertungen",
     "title": "Was Kundinnen sagen",
-    "subtitle": "Echte Google-Bewertungen für SmartNails Stuttgart",
-    "cta": "Alle Bewertungen bei Google",
-    "basedOn": "basierend auf {{count}} Bewertungen",
+    "subtitle": "Bewertungen aus Google Maps für SmartNails Stuttgart",
+    "cta": "Alle Bewertungen in Google Maps",
+    "basedOn": "{{count}} Bewertungen in Google Maps",
     "prev": "Vorherige Bewertungen",
     "next": "Nächste Bewertungen"
   },
@@ -123,6 +123,157 @@
     "about": "Über uns",
     "faq": "FAQ",
     "contact": "Kontakt"
+  },
+  "landing": {
+    "backToHome": "Zur Startseite",
+    "bookCta": "Termin per WhatsApp",
+    "relatedLabel": "Weiterlesen",
+    "gelnagel-stuttgart": {
+      "title": "Gelnägel Stuttgart",
+      "metaTitle": "Gelnägel Stuttgart | Gel-Lack & Verlängerung",
+      "metaDescription": "Gelnägel in Stuttgart-Nord: Gel-Lack ab 45 €, Aufbau-Gel ab 50 €, Nagelverlängerung ab 55 €. SmartNails, Im Kaisemer 26A, 70191. Termin per WhatsApp.",
+      "keywords": "Gelnägel Stuttgart, Gel Nägel Stuttgart, Gel-Lack Stuttgart, Nagelverlängerung Stuttgart, Aufbau-Gel, SmartNails",
+      "eyebrow": "SmartNails · Stuttgart-Nord",
+      "lead": "Bei SmartNails bekommen Sie Gelnägel in Stuttgart-Nord — nicht im Einkaufszentrum, sondern im Studio in der Im Kaisemer 26A (70191). Termin nach Vereinbarung.",
+      "sections": [
+        {
+          "id": "arten",
+          "heading": "Gel-Lack, Aufbau oder Verlängerung",
+          "paragraphs": [
+            "Gel-Lack liegt auf dem Naturnagel und hält bei guter Pflege etwa zwei bis drei Wochen. Aufbau-Gel gibt Form und Stabilität, wenn der Nagel weich ist oder leichter bricht.",
+            "Nagelverlängerung mit Gel eignet sich, wenn Sie mehr Länge möchten. Die genaue Form und Länge klären wir vor dem Termin — schreiben Sie uns einfach ein Foto oder Ihren Wunsch."
+          ],
+          "list": [
+            "Gel-Lack auf dem Naturnagel — ab 45 €",
+            "Aufbau-Gel / Gelnägel — ab 50 €",
+            "Nagelverlängerung — ab 55 €"
+          ]
+        },
+        {
+          "id": "ablauf",
+          "heading": "So läuft der Termin",
+          "paragraphs": [
+            "Sie schreiben per WhatsApp oder Instagram. Wir finden einen Slot unter der Woche oder samstags. Vor Ort wählen wir Farbe und, falls gewünscht, ein schlichtes Design.",
+            "Das Studio liegt in Stuttgart-Nord. Planen Sie Anfahrt zur Im Kaisemer 26A ein — nicht Königstraße oder Milaneo."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Wie lange halten Gelnägel in Stuttgart?",
+          "a": "Gel-Lack hält in der Regel 2–3 Wochen. Aufbau und Verlängerung sind stabiler, brauchen aber rechtzeitiges Auffüllen."
+        },
+        {
+          "q": "Kann ich ohne Termin kommen?",
+          "a": "Nein. SmartNails arbeitet nach Vereinbarung. Schreiben Sie uns — oft gibt es zeitnahe freie Slots."
+        }
+      ],
+      "related": ["manikure-stuttgart", "preise", "stuttgart-nord"]
+    },
+    "manikure-stuttgart": {
+      "title": "Maniküre Stuttgart",
+      "metaTitle": "Maniküre Stuttgart | mit und ohne Gel-Lack",
+      "metaDescription": "Maniküre in Stuttgart-Nord: ohne Lackierung 30 €, mit Gel-Lack ab 45 €. SmartNails, Im Kaisemer 26A, 70191. Termin per WhatsApp oder Instagram.",
+      "keywords": "Maniküre Stuttgart, Maniküre Stuttgart-Nord, Gel-Lack Maniküre, Nagelstudio Stuttgart, SmartNails",
+      "eyebrow": "SmartNails · Stuttgart-Nord",
+      "lead": "Klassische Maniküre und Maniküre mit Gel-Lack im Nagelstudio SmartNails, Stuttgart-Nord. Kleines Studio, fester Meister, Termin statt Warteschlange.",
+      "sections": [
+        {
+          "id": "varianten",
+          "heading": "Varianten und Preise",
+          "paragraphs": [
+            "Ohne Lackierung pflegen wir Form und Nagelhaut. Mit Gel-Lack bleibt die Farbe länger. Aufbau-Gel plus Gel-Lack eignet sich, wenn der Naturnagel extra Halt braucht."
+          ],
+          "list": [
+            "Maniküre ohne Lackierung — 30 €",
+            "mit Basis-Gel + Gel-Lack — 45 €",
+            "mit Aufbau-Gel + Gel-Lack — 50 €",
+            "mit Reparatur (mehr als 2 Nägel) + Gel-Lack — 55 €"
+          ]
+        },
+        {
+          "id": "fuer-wen",
+          "heading": "Für wen das Studio passt",
+          "paragraphs": [
+            "Wenn Sie ein ruhiges Nagelstudio in Stuttgart-Nord suchen und Deutsch oder Russisch sprechen möchten. Innenstadt-Salons an der Königstraße sind näher am Schloss — wir sind in 70191, Im Kaisemer 26A.",
+            "Design rechnen wir nach Aufwand pro Nagel (1–5 €). Die volle Preisliste steht auf einer eigenen Seite."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Wie buche ich eine Maniküre in Stuttgart?",
+          "a": "Per WhatsApp oder Instagram @smartnails_stuttgart. Schreiben Sie Wunschtag und Variante (mit oder ohne Gel-Lack)."
+        },
+        {
+          "q": "Gibt es Walk-in?",
+          "a": "Nein, nur nach Terminvereinbarung. So bleibt der Slot bei Ihnen und Sie warten nicht im Salon."
+        }
+      ],
+      "related": ["gelnagel-stuttgart", "preise", "stuttgart-nord"]
+    },
+    "preise": {
+      "title": "Nagelstudio Stuttgart Preise",
+      "metaTitle": "Nagelstudio Stuttgart Preise | Maniküre & Gelnägel",
+      "metaDescription": "Aktuelle Preise von SmartNails Stuttgart-Nord: Maniküre ab 30 €, Gel-Lack ab 45 €, Nagelverlängerung ab 55 €, Smart-Pediküre ab 45 €. Plus Code ROSE5.",
+      "keywords": "Nagelstudio Stuttgart Preise, Maniküre Stuttgart Preise, Gelnägel Preise Stuttgart, SmartNails",
+      "eyebrow": "Preisliste · SmartNails",
+      "lead": "Transparente Euro-Preise für Maniküre, Gelnägel, Design und Pediküre. Der genaue Betrag hängt von Länge, Zustand der Nägel und Design ab.",
+      "listHeading": "Leistungen im Überblick",
+      "sections": [
+        {
+          "id": "hinweis",
+          "heading": "Was der Preis enthält",
+          "paragraphs": [
+            "Jede Position ist eine fertige Leistung im Studio in Stuttgart-Nord. Design wird extra pro Nagel berechnet. Beim ersten Termin über die Website gilt der Code ROSE5 (5 € Rabatt) — einfach in WhatsApp nennen."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Sind die Preise fest?",
+          "a": "Die Liste zeigt die Standardpreise. Bei stark beschädigten Nägeln oder aufwendigem Design sagen wir den Aufpreis vor Beginn der Arbeit."
+        }
+      ],
+      "related": ["manikure-stuttgart", "gelnagel-stuttgart", "stuttgart-nord"]
+    },
+    "stuttgart-nord": {
+      "title": "Nagelstudio Stuttgart-Nord",
+      "metaTitle": "Nagelstudio Stuttgart-Nord | 70191 Im Kaisemer",
+      "metaDescription": "Nagelstudio SmartNails in Stuttgart-Nord: Im Kaisemer 26A, 70191. Gelnägel und Maniküre nach Termin. Deutsch und Russisch. Nicht im Milaneo.",
+      "keywords": "Nagelstudio Stuttgart-Nord, Nagelstudio 70191, Im Kaisemer, Nagelstudio Stuttgart, SmartNails",
+      "eyebrow": "Standort · 70191",
+      "lead": "SmartNails ist ein Nagelstudio in Stuttgart-Nord, nicht in der Innenstadt und nicht im Milaneo. Adresse: Im Kaisemer 26A, 70191 Stuttgart.",
+      "sections": [
+        {
+          "id": "lage",
+          "heading": "Wo wir sind — und wo nicht",
+          "paragraphs": [
+            "Das Studio liegt in der PLZ 70191. Wer „Nagelstudio Stuttgart Mitte“ oder „Königstraße“ sucht, findet uns nicht um die Ecke — die Fahrt aus der City ist kurz, der Standort bleibt Nord.",
+            "In Google Maps: SmartNails / Im Kaisemer 26A. Schreiben Sie vor dem ersten Besuch, falls Sie unsicher sind, welches Gebäude gemeint ist."
+          ]
+        },
+        {
+          "id": "besuch",
+          "heading": "Besuch und Sprachen",
+          "paragraphs": [
+            "Termine nach Vereinbarung, Montag bis Samstag. Kein Walk-in. Kommunikation auf Deutsch, Russisch und Ukrainisch.",
+            "Galerie und Preise stehen auf der Website. Die Buchung läuft über WhatsApp oder Instagram — nicht über ein Online-Kalender-Widget."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Seid ihr im Milaneo?",
+          "a": "Nein. SmartNails ist in der Im Kaisemer 26A in Stuttgart-Nord (70191), nicht im Einkaufszentrum Milaneo."
+        },
+        {
+          "q": "Arbeitet ihr ohne Termin?",
+          "a": "Nein. Bitte vorher per WhatsApp oder Instagram schreiben. So bleibt der Platz verbindlich."
+        }
+      ],
+      "related": ["gelnagel-stuttgart", "manikure-stuttgart", "preise"]
+    }
   },
   "language": "Sprache",
   "common": {

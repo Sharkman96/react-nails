@@ -1,14 +1,14 @@
 {
   "hero": {
-    "title": "Маникюр в Штутгарте",
-    "subtitle": "Студия SmartNails для аккуратных ногтей и nail-дизайна",
-    "description": "Маникюр, смарт-педикюр, гель-лак, наращивание и индивидуальный дизайн ногтей в 70191 Stuttgart по предварительной записи.",
-    "imageAlt": "Маникюр и nail-дизайн в студии SmartNails Stuttgart"
+    "title": "Студия маникюра Stuttgart-Nord",
+    "subtitle": "Гель-лак, маникюр и дизайн ногтей",
+    "description": "SmartNails в 70191 Stuttgart (Im Kaisemer 26A): маникюр, смарт-педикюр, гель-лак и наращивание по предварительной записи.",
+    "imageAlt": "Маникюр и nail-дизайн в студии SmartNails Stuttgart-Nord"
   },
   "meta": {
-    "title": "Маникюр Штутгарт | SmartNails Stuttgart",
-    "description": "SmartNails Stuttgart: маникюр, педикюр, гель-лак, наращивание и дизайн ногтей в 70191 Stuttgart, Im Kaisemer 26A. Запись через WhatsApp или Instagram.",
-    "keywords": "маникюр Штутгарт, ногти Штутгарт, педикюр Штутгарт, наращивание ногтей Штутгарт, гель лак Штутгарт, дизайн ногтей, SmartNails Stuttgart, русский мастер маникюра Германия"
+    "title": "Маникюр Штутгарт-Норд | гель-лак и наращивание",
+    "description": "Студия маникюра в Stuttgart-Nord (70191, Im Kaisemer 26A): гель-лак, маникюр и наращивание. Запись в WhatsApp или Instagram.",
+    "keywords": "маникюр Штутгарт, студия маникюра Штутгарт, гель-лак Штутгарт, наращивание ногтей Штутгарт, Stuttgart-Nord, 70191, Im Kaisemer, SmartNails"
   },
   "services": {
     "title": "Услуги и цены",
@@ -70,7 +70,7 @@
         "price": "от 55 €"
       }
     },
-    "cta": "Смотреть услуги и цены"
+    "cta": "Подробнее о гель-ногтях"
   },
   "promo": {
     "eyebrow": "Секретный комплимент",
@@ -92,9 +92,9 @@
   "reviews": {
     "eyebrow": "Отзывы",
     "title": "Что говорят клиенты",
-    "subtitle": "Реальные отзывы Google о SmartNails Stuttgart",
-    "cta": "Все отзывы в Google",
-    "basedOn": "на основе {{count}} отзывов",
+    "subtitle": "Отзывы с Google Maps о SmartNails Stuttgart",
+    "cta": "Все отзывы в Google Maps",
+    "basedOn": "{{count}} отзывов в Google Maps",
     "prev": "Предыдущие отзывы",
     "next": "Следующие отзывы"
   },
@@ -123,6 +123,157 @@
     "about": "О нас",
     "faq": "Вопросы",
     "contact": "Контакты"
+  },
+  "landing": {
+    "backToHome": "На главную",
+    "bookCta": "Запись в WhatsApp",
+    "relatedLabel": "Ещё страницы",
+    "gelnagel-stuttgart": {
+      "title": "Гель-ногти в Штутгарте",
+      "metaTitle": "Гель-лак и наращивание Штутгарт",
+      "metaDescription": "Гель-лак от 45 €, укрепление от 50 €, наращивание от 55 € в Stuttgart-Nord. SmartNails, Im Kaisemer 26A, 70191. Запись в WhatsApp.",
+      "keywords": "гель-лак Штутгарт, наращивание ногтей Штутгарт, гель-ногти, SmartNails",
+      "eyebrow": "SmartNails · Stuttgart-Nord",
+      "lead": "Гель-лак, укрепление и наращивание в студии SmartNails в Stuttgart-Nord — Im Kaisemer 26A, 70191. Не в торговом центре, запись по договорённости.",
+      "sections": [
+        {
+          "id": "arten",
+          "heading": "Гель-лак, укрепление или наращивание",
+          "paragraphs": [
+            "Гель-лак на натуральный ноготь держится обычно 2–3 недели. Укрепление гелем даёт форму, если ноготь мягкий или ломается.",
+            "Наращивание — если нужна длина. Форму и длину можно прислать фотографией в WhatsApp до визита."
+          ],
+          "list": [
+            "Гель-лак — от 45 €",
+            "Укрепление гелем — от 50 €",
+            "Наращивание — от 55 €"
+          ]
+        },
+        {
+          "id": "ablauf",
+          "heading": "Как проходит визит",
+          "paragraphs": [
+            "Пишете в WhatsApp или Instagram — подбираем слот в будни или в субботу. На месте выбираем цвет и, при желании, простой дизайн.",
+            "Студия в Stuttgart-Nord. Это не Königstraße и не Milaneo."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Сколько держится покрытие?",
+          "a": "Гель-лак обычно 2–3 недели. Укрепление и наращивание стабильнее, но их нужно вовремя корректировать."
+        },
+        {
+          "q": "Можно без записи?",
+          "a": "Нет, только по договорённости. Напишите — часто есть ближайшие окна."
+        }
+      ],
+      "related": ["manikure-stuttgart", "preise", "stuttgart-nord"]
+    },
+    "manikure-stuttgart": {
+      "title": "Маникюр в Штутгарте",
+      "metaTitle": "Маникюр Штутгарт | с гель-лаком и без",
+      "metaDescription": "Маникюр в Stuttgart-Nord: без покрытия 30 €, с гель-лаком от 45 €. SmartNails, Im Kaisemer 26A. Запись в WhatsApp или Instagram.",
+      "keywords": "маникюр Штутгарт, гель-лак маникюр, студия маникюра Штутгарт, SmartNails",
+      "eyebrow": "SmartNails · Stuttgart-Nord",
+      "lead": "Классический маникюр и покрытие гель-лаком в небольшой студии SmartNails. Один мастер, запись вместо очереди.",
+      "sections": [
+        {
+          "id": "varianten",
+          "heading": "Варианты и цены",
+          "paragraphs": [
+            "Без покрытия — форма и кутикула. С гель-лаком цвет держится дольше. Укрепление плюс гель-лак — если натуральному ногтю нужна опора."
+          ],
+          "list": [
+            "Без покрытия — 30 €",
+            "база + гель-лак — 45 €",
+            "укрепление + гель-лак — 50 €",
+            "ремонт (больше 2 ногтей) + гель-лак — 55 €"
+          ]
+        },
+        {
+          "id": "fuer-wen",
+          "heading": "Кому подходит студия",
+          "paragraphs": [
+            "Если нужен спокойный салон в Stuttgart-Nord и удобно говорить по-русски или по-немецки. Центр и Königstraße — другая локация: мы в 70191, Im Kaisemer 26A.",
+            "Дизайн считается отдельно за ноготь (1–5 €). Полный прайс — на отдельной странице."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Как записаться на маникюр?",
+          "a": "WhatsApp или Instagram @smartnails_stuttgart. Напишите день и вариант (с покрытием или без)."
+        },
+        {
+          "q": "Есть walk-in?",
+          "a": "Нет, только по записи. Так слот остаётся за вами, без ожидания в салоне."
+        }
+      ],
+      "related": ["gelnagel-stuttgart", "preise", "stuttgart-nord"]
+    },
+    "preise": {
+      "title": "Цены студии в Штутгарте",
+      "metaTitle": "Цены маникюра Штутгарт | SmartNails",
+      "metaDescription": "Цены SmartNails Stuttgart-Nord: маникюр от 30 €, гель-лак от 45 €, наращивание от 55 €, смарт-педикюр от 45 €. Промокод ROSE5.",
+      "keywords": "цены маникюр Штутгарт, прайс гель-лак, SmartNails",
+      "eyebrow": "Прайс · SmartNails",
+      "lead": "Прозрачные цены в евро: маникюр, гель, дизайн и педикюр. Итог зависит от длины, состояния ногтей и дизайна.",
+      "listHeading": "Услуги и суммы",
+      "sections": [
+        {
+          "id": "hinweis",
+          "heading": "Что входит в цену",
+          "paragraphs": [
+            "Каждая позиция — готовая услуга в студии в Stuttgart-Nord. Дизайн считается отдельно за ноготь. На первый визит с сайта действует код ROSE5 (−5 €) — назовите его в WhatsApp."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Цены фиксированные?",
+          "a": "В списке стандарт. Если ногти сильно повреждены или дизайн сложный, доплату скажем до начала работы."
+        }
+      ],
+      "related": ["manikure-stuttgart", "gelnagel-stuttgart", "stuttgart-nord"]
+    },
+    "stuttgart-nord": {
+      "title": "Студия в Stuttgart-Nord",
+      "metaTitle": "Маникюр Stuttgart-Nord | 70191 Im Kaisemer",
+      "metaDescription": "SmartNails в Stuttgart-Nord: Im Kaisemer 26A, 70191. Маникюр и гель-лак по записи. Русский и немецкий. Не в Milaneo.",
+      "keywords": "маникюр Stuttgart-Nord, студия 70191, Im Kaisemer, SmartNails",
+      "eyebrow": "Адрес · 70191",
+      "lead": "SmartNails — студия в Stuttgart-Nord, не в центре и не в Milaneo. Адрес: Im Kaisemer 26A, 70191 Stuttgart.",
+      "sections": [
+        {
+          "id": "lage",
+          "heading": "Где мы есть — и где нет",
+          "paragraphs": [
+            "Индекс 70191. Запросы «Mitte» или «Königstraße» — это другой район: до нас ехать недалеко, но точка именно Nord.",
+            "В Google Maps: SmartNails / Im Kaisemer 26A. Если не уверены в подъезде — напишите перед первым визитом."
+          ]
+        },
+        {
+          "id": "besuch",
+          "heading": "Визит и языки",
+          "paragraphs": [
+            "Запись с понедельника по субботу, без walk-in. Общение на русском, немецком и украинском.",
+            "Галерея и цены на сайте. Запись — WhatsApp или Instagram, без онлайн-календаря."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Вы в Milaneo?",
+          "a": "Нет. SmartNails на Im Kaisemer 26A в Stuttgart-Nord (70191), не в торговом центре."
+        },
+        {
+          "q": "Можно без записи?",
+          "a": "Нет. Напишите в WhatsApp или Instagram заранее, чтобы слот был за вами."
+        }
+      ],
+      "related": ["gelnagel-stuttgart", "manikure-stuttgart", "preise"]
+    }
   },
   "language": "Язык",
   "common": {
