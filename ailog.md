@@ -232,3 +232,18 @@ UI скрывает секцию при пустом ответе — ожида
 1. Деплой на VPS + в GSC «Проверить URL» для `/` и 4 DE-посадочных.
 2. GBP: категория Nagelstudio, фото, услуги, посты, Q&A, отзывы.
 3. Отзывы на сайте: `GOOGLE_PLACES_API_KEY` + `GOOGLE_PLACE_ID` на VPS (IP, не HTTP referrer).
+
+## 2026-08-22 — Удалены мёртвые client-зависимости
+
+### Действие
+После `npm audit fix` на VPS (пункт 1) убраны пакеты, которые не импортируются:
+
+- `i18next-http-backend` — переводы уже bundled в `i18n.js`
+- `react-query` — ни одного `useQuery` / `QueryClient`
+- `react-helmet` — используется только `react-helmet-async`
+
+### Результат
+`npm uninstall` в `client/`: −19 пакетов из дерева. Audit 74 → 73: оставшееся — `react-scripts` / webpack, не эти три.
+
+### Дальше
+CRA → Vite — только по отдельному запросу.
