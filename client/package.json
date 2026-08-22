@@ -27,7 +27,7 @@
     "build:prod": "set GENERATE_SOURCEMAP=false && set REACT_APP_ENV=production && react-scripts build",
     "build:unix": "GENERATE_SOURCEMAP=false react-scripts build",
     "build:vps": "GENERATE_SOURCEMAP=false react-scripts build && node scripts/patch-ru-html.js",
-    "postbuild": "react-snap && node scripts/patch-ru-html.js",
+    "postbuild": "react-snap && node scripts/patch-ru-html.js && node scripts/patch-prerender-html.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -16,7 +16,8 @@
     "init-admin": "node scripts/initAdmin.js",
     "test:spa-routes": "node --test lib/spaRoutes.test.js",
     "test:sitemap": "node --test routes/sitemap.test.js",
-    "test:reviews-cache": "node --test lib/reviewsCache.test.js"
+    "test:reviews-cache": "node --test lib/reviewsCache.test.js",
+    "test:prerender-patch": "node --test client/scripts/patch-prerender-html.test.js"
   },
   "engines": {
     "node": ">=18.0.0",

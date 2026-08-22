@@ -247,3 +247,51 @@ UI скрывает секцию при пустом ответе — ожида
 
 ### Дальше
 CRA → Vite — только по отдельному запросу.
+
+## 2026-08-22 — Reviews блок пропал (прод)
+
+### Доказательство
+`GET https://stuttgartnails.de/api/reviews` → 200, `X-Cache: HIT`:
+`{"rating":null,"reviews":[],"reason":"places_error"}`
+
+### Почему UI пустой
+`Reviews.js` делает `return null`, если нет рейтинга и нет отзывов.
+
+### Причина
+Places API на VPS падает (ключи есть, иначе было бы `missing_credentials`). Файла `data/reviews.json` нет или он пустой — fallback нечем отдать. Пустой JSON ещё 10 мин в memory-cache.
+
+Не связано с удалением client-пакетов.
+
+## 2026-08-22 — Reviews снова работают
+
+### Причина 403
+Ключ Places ограничен по IPv4. Исходящий адрес Node: IPv6 `2a02:c207:3018:1202::1`.
+
+### Что сделал пользователь
+Добавил IPv6 (и IPv4) в Application restrictions ключа → restart `stuttgartnails` → API отдаёт рейтинг и отзывы.
+
+## 2026-08-22 — Live URL / snippet check
+
+### Ок
+- `/` и `/ru` 200, title Stuttgart-Nord, description свой.
+- 8 посадочных 200, уникальный `<title>` и Helmet-description/canonical (`data-rh`).
+- `www` и `http` → 301 на https apex.
+- Legal: `X-Robots-Tag: noindex`.
+- Sitemap содержит посадочные.
+- `/api/reviews`: rating 5, 4 отзыва.
+
+### Риск
+В HTML посадочных два canonical: статичный из `index.html` на `/` и Helmet на свой URL. Google может склеить страницы с главной. То же с description/H1 в noscript.
+
+## 2026-08-22 — Patch prerender: один canonical на URL
+
+### Действие
+`client/scripts/patch-prerender-html.js` после snap + patch-ru:
+- оставляет Helmet `data-rh` (canonical, description, hreflang, robots, og);
+- на посадочных и legal снимает статичные теги главной, noscript и JSON-LD без `data-rh`.
+
+### Тесты
+`node --test client/scripts/patch-prerender-html.test.js` — 3 PASS
+
+### Деплой
+Нужен полный `npm run build` (postbuild), затем restart systemd.
